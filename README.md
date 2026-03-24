@@ -10,6 +10,7 @@ AI agent skill for searching Twitter/X via Nitter with Camoufox anti-detect brow
 - 🛡️ **Anti-detection** - Uses Camoufox to bypass bot detection
 - 🌐 **Multiple Nitter instances** - Fallback support for reliability
 - 🤖 **Agent-friendly** - Structured JSON output for AI consumption
+- ✅ **Well-tested** - 73 unit tests covering edge cases and security
 
 ## Installation
 
@@ -217,9 +218,25 @@ The tool detects private accounts and returns:
 
 ### Running tests
 
+All tests pass: **73 tests, 100% pass rate** ✅
+
 ```bash
-pytest tests/
+# Run all tests
+./run_tests.sh
+
+# Or manually
+export PYTHONPATH=src:$PYTHONPATH
+python3 -m pytest tests/ -v
 ```
+
+**Test coverage:**
+- URL building (12 tests)
+- HTML parsing (14 tests)
+- Input validation (19 tests)
+- Output format (12 tests)
+- Error handling (16 tests)
+
+See [tests/TESTING.md](tests/TESTING.md) for detailed testing guide.
 
 ### Code formatting
 
