@@ -248,7 +248,7 @@ Contributions welcome! Please:
 
 ## Credits
 
-Created with [Hermes Agent](https://github.com/nous-research/hermes-agent) running on Qwen3.5 27B UD Q4_K_XL.
+Created with [Hermes Agent](https://github.com/NousResearch/hermes-agent) running on Qwen3.5 27B UD Q4_K_XL.
 
 ## Support
 
