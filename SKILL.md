@@ -15,15 +15,29 @@ AI agent skill for searching Twitter/X via Nitter with Camoufox anti-detect brow
 
 ## Installation
 
-### For AI Agents (Claude Code, Hermes Agent, etc.)
+### Universal AI Agent Installation (Recommended)
 
-```bash
-# Clone to your skills directory
-cd ~/.claude/skills  # or your agent's skill path
-git clone https://github.com/shivam2014/nitter-twitter-search.git nitter-twitter-search
+**For Claude Code, Hermes Agent, and other skill-compatible agents:**
+
+Simply provide this URL to your agent:
+
+```
+https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md
 ```
 
-### Install Dependencies
+The agent will automatically:
+1. Fetch the SKILL.md file
+2. Read the installation instructions
+3. Install dependencies via pip
+4. Make the skill available for use
+
+**Example usage in prompt:**
+```
+Load the skill from https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md
+Then search for recent tweets from @NASA about Mars missions.
+```
+
+### Manual Installation (for development/testing)
 
 ```bash
 cd nitter-twitter-search

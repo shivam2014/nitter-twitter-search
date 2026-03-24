@@ -13,20 +13,34 @@ AI agent skill for searching Twitter/X via Nitter with Camoufox anti-detect brow
 
 ## Installation
 
-### Option 1: pip install (Recommended)
+### For AI Agents (Universal Skill Format)
 
+**Claude Code, Hermes Agent, and other skill-compatible agents:**
+
+Provide this URL to your agent:
+
+```
+https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md
+```
+
+The agent will automatically fetch and load the skill instructions.
+
+**Example prompt:**
+> "Load the skill from https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md and search for NASA tweets about Mars"
+
+### For Direct Installation (pip)
+
+**Option 1: From PyPI** (once published)
 ```bash
 pip install nitter-twitter-search
 ```
 
-### Option 2: From GitHub
-
+**Option 2: From GitHub**
 ```bash
 pip install git+https://github.com/shivam2014/nitter-twitter-search.git
 ```
 
-### Option 3: Local development
-
+**Option 3: Local development**
 ```bash
 git clone https://github.com/shivam2014/nitter-twitter-search.git
 cd nitter-twitter-search
@@ -228,9 +242,13 @@ Contributions welcome! Please:
 
 ## Related Tools
 
-- [Camoufox](https://github.com/0xpadawan/camoufox) - Anti-detect browser automation
+- [Camoufox CLI](https://github.com/0xpadawan/camoufox) - Anti-detect browser automation
 - [Nitter](https://github.com/zedeus/nitter) - Twitter frontend alternative
 - [Playwright](https://playwright.dev) - Browser automation framework
+
+## Credits
+
+Created with [Hermes Agent](https://github.com/nous-research/hermes-agent) running on Qwen3.5 27B UD Q4_K_XL.
 
 ## Support
 
