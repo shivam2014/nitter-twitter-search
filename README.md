@@ -242,7 +242,7 @@ Contributions welcome! Please:
 
 ## Related Tools
 
-- [Camoufox CLI](https://github.com/0xpadawan/camoufox) - Anti-detect browser automation
+- [Camoufox CLI](https://github.com/Bin-Huang/camoufox-cli) - Anti-detect browser automation for AI agents
 - [Nitter](https://github.com/zedeus/nitter) - Twitter frontend alternative
 - [Playwright](https://playwright.dev) - Browser automation framework
 
