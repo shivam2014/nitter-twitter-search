@@ -43,10 +43,14 @@ RATE_LIMIT_MARKERS = (
 
 NOT_FOUND_MARKERS = (
     "user not found",
-    "no items found",
-    "no results",
     "account doesn't exist",
     "this account doesn",
+)
+
+#: An empty result set. Unlike a missing account, this may be instance-specific.
+EMPTY_MARKERS = (
+    "no items found",
+    "no results",
 )
 
 PROTECTED_MARKERS = (
@@ -122,7 +126,7 @@ def classify_page(text: str) -> str:
     """Label a fetched page.
 
     Returns one of ``ok``, ``challenge``, ``ratelimited``, ``disabled``,
-    ``protected``, ``missing``.
+    ``protected``, ``missing`` (account gone) or ``empty`` (no matching posts).
     """
     haystack = (text or "")[:20000].lower()
     if any(marker in haystack for marker in CHALLENGE_MARKERS):
@@ -135,6 +139,8 @@ def classify_page(text: str) -> str:
         return "protected"
     if any(marker in haystack for marker in NOT_FOUND_MARKERS):
         return "missing"
+    if any(marker in haystack for marker in EMPTY_MARKERS):
+        return "empty"
     return "ok"
 
 

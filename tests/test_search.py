@@ -137,17 +137,30 @@ class TestFallback:
         assert result["tweets"] == []
         assert "every instance failed" in result["search_metadata"]["error"].lower()
 
-    def test_no_results_is_terminal(self, monkeypatch):
+    def test_empty_result_tries_the_next_instance(self, monkeypatch):
         calls = []
 
         def http(url, timeout=10):
             calls.append(url)
-            return NO_RESULTS
+            return NO_RESULTS if len(calls) == 1 else RSS
 
         wire(monkeypatch, ["https://a.example", "https://b.example"], http=http, session=FakeSession([]))
-        result = search(SearchRequest(user="NASA", query="zzz", limit=3))
-        assert result["tweets"] == []
+        result = search(SearchRequest(user="NASA", query="moon", limit=3))
+        # The first mirror had nothing; the second did, so this is a success.
+        assert len(calls) == 2
+        assert result["tweets"]
+
+    def test_missing_account_is_terminal(self, monkeypatch):
+        calls = []
+
+        def http(url, timeout=10):
+            calls.append(url)
+            return "<html><span>User not found</span></html>"
+
+        wire(monkeypatch, ["https://a.example", "https://b.example"], http=http, session=FakeSession([]))
+        result = search(SearchRequest(user="NASA", limit=3))
         assert len(calls) == 1
+        assert result["tweets"] == []
         assert "no results" in result["search_metadata"]["error"].lower()
 
 

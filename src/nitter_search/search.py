@@ -161,8 +161,12 @@ def _fetch_rss(request: SearchRequest, instance: str) -> List[Dict[str, Any]]:
         raise TransportError("Instance is rate limited")
     if state == "disabled":
         raise TransportError("Search is disabled on this instance")
-    if state in {"missing", "protected"}:
-        raise NoResults(f"Instance reported: {state}")
+    if state == "missing":
+        raise NoResults("Account not found on this instance")
+    if state == "empty":
+        raise TransportError("Instance returned no items")
+    if state == "protected":
+        raise NoResults("Account is protected")
     return parse_rss_feed(payload, instance)
 
 
@@ -179,8 +183,12 @@ def _fetch_browser(
             raise TransportError("Instance is rate limited")
         if state == "disabled":
             raise TransportError("Search is disabled on this instance")
-        if state in {"protected", "missing"} and page_number == 0:
-            raise NoResults(f"Instance reported: {state}")
+        if page_number == 0 and state == "missing":
+            raise NoResults("Account not found on this instance")
+        if page_number == 0 and state == "protected":
+            raise NoResults("Account is protected")
+        if page_number == 0 and state == "empty":
+            raise TransportError("Instance returned no items")
         page_tweets = parse_html_timeline(
             payload, instance, include_replies=request.include_replies
         )
