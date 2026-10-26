@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="flowTitle flowDesc">
+  <title id="flowTitle">How a search resolves</title>
+  <desc id="flowDesc">Four stages: the request is normalised, mirrors are discovered and health-ranked, the cheapest transport is tried first with a browser as fallback for challenge pages, and the result is returned with a record of which mirrors were tried. Failures are remembered so later calls skip bad mirrors.</desc>
+
+  <rect width="1200" height="340" rx="24" fill="#0A0C10"/>
+  <rect x="0.5" y="0.5" width="1199" height="339" rx="23.5" fill="none" stroke="#1B2230"/>
+
+  <text x="64" y="64" font-family="ui-monospace, Menlo, monospace" font-size="18" letter-spacing="2.4" fill="#FF6B5E">ONE CALL</text>
+  <text x="184" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="26" fill="#C4CCD8">Four stages, cheapest path first</text>
+
+  <g id="stages" font-family="ui-monospace, Menlo, monospace">
+    <g>
+      <rect x="64" y="96" width="244" height="150" rx="14" fill="#0E1116" stroke="#222B38"/>
+      <text x="88" y="132" font-size="18" fill="#FF6B5E">01</text>
+      <text x="88" y="166" font-size="22" fill="#EEF2F7">normalise</text>
+      <text x="88" y="198" font-size="18" fill="#8B95A5">handle, dates,</text>
+      <text x="88" y="222" font-size="18" fill="#8B95A5">filters, limit</text>
+    </g>
+    <g>
+      <rect x="332" y="96" width="244" height="150" rx="14" fill="#0E1116" stroke="#222B38"/>
+      <text x="356" y="132" font-size="18" fill="#FF6B5E">02</text>
+      <text x="356" y="166" font-size="22" fill="#EEF2F7">discover</text>
+      <text x="356" y="198" font-size="18" fill="#8B95A5">healthy mirrors,</text>
+      <text x="356" y="222" font-size="18" fill="#8B95A5">6h cache, ranked</text>
+    </g>
+    <g>
+      <rect x="600" y="96" width="244" height="150" rx="14" fill="#0E1116" stroke="#222B38"/>
+      <text x="624" y="132" font-size="18" fill="#FF6B5E">03</text>
+      <text x="624" y="166" font-size="22" fill="#EEF2F7">transport</text>
+      <text x="624" y="198" font-size="18" fill="#4ADE80">rss · about 2s</text>
+      <text x="624" y="222" font-size="18" fill="#FBBF24">browser on challenge</text>
+    </g>
+    <g>
+      <rect x="868" y="96" width="244" height="150" rx="14" fill="#0E1116" stroke="#222B38"/>
+      <text x="892" y="132" font-size="18" fill="#FF6B5E">04</text>
+      <text x="892" y="166" font-size="22" fill="#EEF2F7">envelope</text>
+      <text x="892" y="198" font-size="18" fill="#8B95A5">tweets, dates,</text>
+      <text x="892" y="222" font-size="18" fill="#8B95A5">instances_tried</text>
+    </g>
+  </g>
+
+  <g stroke="#2F3A4A" stroke-width="1.5" fill="none">
+    <path d="M308 171h20" marker-end="url(#arrow)"/>
+    <path d="M576 171h20" marker-end="url(#arrow)"/>
+    <path d="M844 171h20" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3E4B5E"/>
+    </marker>
+  </defs>
+
+  <g font-family="ui-monospace, Menlo, monospace" font-size="18">
+    <path d="M712 254 V282 Q712 290 704 290 H194 Q186 290 186 282 V254" fill="none" stroke="#2A3546" stroke-dasharray="5 5"/>
+    <text x="600" y="320" text-anchor="middle" fill="#8B95A5">a failed mirror sinks for 15 min — the next call starts where the last one worked</text>
+  </g>
+</svg>

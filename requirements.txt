@@ -1,9 +1,15 @@
-# Core dependencies
-camoufox>=0.5.0
+# Runtime dependencies for nitter-twitter-search.
+# `pip install -e .` reads pyproject.toml; this file exists for plain `pip install -r`.
+beautifulsoup4>=4.12.0
 playwright>=1.40.0
-click>=8.0.0
 
-# Development dependencies (optional)
+# Optional: patched Firefox with generated fingerprints. Harder to detect than
+# stock Chrome, and needed for instances that gate on browser identity.
+# After installing, run: camoufox fetch
+camoufox>=0.5.0
+
+# Development
 pytest>=7.0.0
+pytest-cov>=4.0.0
 black>=23.0.0
 mypy>=1.0.0

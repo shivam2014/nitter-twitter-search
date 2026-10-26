@@ -1,17 +1,17 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "nitter-twitter-search"
-version = "1.0.0"
-description = "AI agent skill for searching Twitter/X via Nitter with Camoufox anti-detect browser"
+version = "2.0.0"
+description = "Search Twitter/X through Nitter mirrors, with automatic instance discovery and browser fallback"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
     { name = "shivam2014" }
 ]
-keywords = ["twitter", "nitter", "ai-agents", "web-scraping", "camoufox", "search"]
+keywords = ["twitter", "nitter", "ai-agents", "web-scraping", "camoufox", "search", "mcp"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -21,36 +21,50 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Internet :: WWW/HTTP",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "camoufox>=0.5.0",
+    "beautifulsoup4>=4.12.0",
     "playwright>=1.40.0",
-    "click>=8.0.0",
 ]
 
 [project.optional-dependencies]
+camoufox = ["camoufox>=0.5.0"]
 dev = [
     "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "mypy>=1.0.0",
 ]
 
 [project.scripts]
 nitter-search = "nitter_search.cli:main"
+nitter-search-mcp = "nitter_search.mcp_server:main"
 
 [project.urls]
 Homepage = "https://github.com/shivam2014/nitter-twitter-search"
 Documentation = "https://github.com/shivam2014/nitter-twitter-search#readme"
 Repository = "https://github.com/shivam2014/nitter-twitter-search.git"
+Issues = "https://github.com/shivam2014/nitter-twitter-search/issues"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/nitter_search"]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-q",
+    "--tb=short",
+    "--strict-markers",
+]
 
 [tool.black]
-line-length = 88
+line-length = 100
 target-version = ['py39', 'py310', 'py311', 'py312']
 
 [tool.mypy]

@@ -1,71 +1,68 @@
-# Nitter Mirror Instances
+# Nitter instances
 
-This file contains known working Nitter mirror instances. These are fetched from https://status.d420.de/api/v1/instances when available.
+Public Nitter mirrors are unstable: they disappear, get rate limited, or start
+serving an anti-bot challenge instead of content. Any hard-coded list is wrong
+within a few months — that is why this package discovers instances at runtime.
 
-## How to Fetch Fresh Mirrors
+## How discovery works
 
-The skill automatically fetches from:
-```
-https://status.d420.de/api/v1/instances
-```
+1. `https://status.d420.de/api/v1/instances` returns the mirrors the community
+   health-checks, with a `healthy` flag, an `rss` capability flag and a
+   reliability score.
+2. The response is cached for six hours in
+   `${XDG_CACHE_HOME:-~/.cache}/nitter-search/instances.json`.
+3. Mirrors are filtered: unhealthy ones and known-dead domains are dropped.
+4. `SEED_INSTANCES` from `nitter_search/instances.py` are appended as a fallback
+   for when the status endpoint itself is unreachable.
 
-If that endpoint is unavailable, it will search for alternative mirrors.
+When discovery fails entirely, the seed list keeps the tool working.
 
-## Known Mirrors (Verified)
+## How ordering works
 
-### Primary Mirrors
-- `https://nitter.net` - Original/main instance
-- `https://nitter.pussthecat.org` - Popular alternative
-- `https://nitter.fdn.fr` - FDN-hosted instance
-- `https://nitter.hyperrealistic.dev` - Hyperrealistic instance
+Candidates are ordered by:
 
-### Secondary Mirrors
-- `https://nitter.projectsegfau.lt` - Project Segfau.lt
-- `https://nitter.dread.so` - Dread.so instance
-- `https://nitter.totallynotanactualwebservice.com` - TotallyNotAnActualWebService
-- `https://nitter.josecloud.xyz` - JoseCloud instance
+1. known-dead and bad hosts removed,
+2. `healthy` first,
+3. health memory: an instance that answered recently jumps ahead, one that
+   failed in the last fifteen minutes sinks,
+4. reliability points from the status endpoint.
 
-### Additional Mirrors (Unverified Status)
-- `https://nitter.bloat.tech`
-- `https://nitter.bus-hit.me`
-- `https://nitter.datenschutz.xyz`
-- `https://nitter.ducks.party`
-- `https://nitter.fisketroll.se`
-- `https://nitter.ikaros.dev`
-- `https://nitter.itsnotabackdoor.com`
-- `https://nitter.libredd.it`
-- `https://nitter.mastodon.cloud`
-- `https://nitter.privacyfucking.rocks`
-- `https://nitter.rootzclub.com`
-- `https://nitter.rouge-coeur.com`
-- `https://nitter.saidit.net`
-- `https://nitter.sopuli.xyz`
-- `https://nitter.voxh.com`
-- `https://nitter.zapashcanon.fr`
+Health memory lives in `.../nitter-search/health.json` and expires on its own.
 
-## Mirror Health Check
+## Per-instance behaviour that matters
 
-To check mirror status in real-time:
-```
-https://status.d420.de/
+| Response | Classified as | Effect |
+|----------|---------------|--------|
+| Nitter timeline HTML | `ok` | parse and return |
+| Anubis / Gandalf / Cloudflare page | `challenge` | retry in a browser, then next instance |
+| "Instance has no auth tokens, or is fully rate limited" | `ratelimited` | next instance |
+| "Search has been disabled due to abuse" | `disabled` | next instance, timeline still usable |
+| "User not found" / "No items found" | `missing` | stop, this is a real empty result |
+| "This account's tweets are protected" | `protected` | stop, nothing to fetch |
+
+## Inspecting the list yourself
+
+```bash
+nitter-search --list-instances         # cached candidates, in order
+nitter-search --check                  # live probe of each candidate
+nitter-search --check --instance https://nitter.netbub.com
 ```
 
-Or via API:
+`--check` fetches a known account's RSS feed per instance and reports latency,
+whether RSS works, and whether the instance is challenge-gated.
+
+## Pinning an instance
+
+```bash
+nitter-search --user NASA --instance https://nitter.netbub.com
+nitter-search --user NASA --instance https://a.example --instance https://b.example
 ```
-https://status.d420.de/api/v1/instances
-```
 
-## Notes
+Pinning bypasses discovery order but not health memory; a pinned instance that
+fails is reported in `search_metadata.instances_tried`.
 
-- Nitter instances can go offline frequently due to X/Twitter blocking
-- The skill automatically tries multiple mirrors when one fails
-- If all mirrors are down, it will fall back to camoufox-cli browser automation
-- Some mirrors may be region-locked or blocked in certain countries
+## Note on nitter.net
 
-## Adding New Mirrors
-
-If you know of a working Nitter mirror that's not in this list:
-1. Test it manually: `curl -I https://<mirror-url>`
-2. If it responds with 200 OK, it's working
-3. Add it to this list with verification timestamp
-4. Consider adding to the skill's internal mirror list
+`nitter.net` closed and now serves a static "this site is offline" page. It is
+kept in `KNOWN_DEAD` so it is never tried, and `--check` will show `HTTP 410`
+if you pin it deliberately.

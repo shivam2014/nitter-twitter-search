@@ -1,321 +1,162 @@
 ---
 name: nitter-twitter-search
-description: Search Twitter/X via Nitter with Camoufox anti-detect browser. AI agent skill for retrieving tweets by user, query, and date range.
-version: 1.0.0
+description: Search Twitter/X via Nitter mirrors with automatic instance discovery and browser fallback. Returns structured JSON for agents. Use when you need recent tweets, a user timeline, date-scoped keyword searches, or engagement data without an API key.
+version: 2.0.0
 author: shivam2014
 license: MIT
 metadata:
-  hermes:
-    tags: [twitter, nitter, ai-agents, web-scraping, camoufox, search]
+  tags: [twitter, nitter, ai-agents, web-scraping, camouflage, search, mcp]
 ---
 
-# Nitter Twitter Search Skill
+# Nitter Twitter Search
 
-AI agent skill for searching Twitter/X via Nitter with Camoufox anti-detect browser. Returns structured JSON data suitable for AI consumption.
+Read public X/Twitter posts through Nitter mirrors. No API key, no login, no
+account. Built to survive the fact that public mirrors disappear, rate limit, or
+hide behind proof-of-work gates.
 
-## Installation
+## How it decides where to look
 
-### Universal AI Agent Installation (Recommended)
+1. **Instance discovery.** Healthy mirrors come from `status.d420.de`, cached for
+   six hours, merged with a seed list. Nothing is hard-coded to a mirror that
+   died last year.
+2. **Cheapest transport first.** `/<user>/rss` is plain HTTP and answers in about
+   two seconds. Only when the feed is challenge-gated, or you asked for
+   engagement counts, does it launch a browser.
+3. **Browser fallback.** Camoufox if installed, otherwise Playwright with bundled
+   Chromium, otherwise your installed Google Chrome. The browser clears the
+   JavaScript proof-of-work gate and the cookies are reused for later calls.
+4. **Health memory.** An instance that failed in the last fifteen minutes sinks
+   to the bottom of the queue, so repeated calls get faster, not slower.
 
-**For Claude Code, Hermes Agent, and other skill-compatible agents:**
-
-Simply provide this URL to your agent:
-
-```
-https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md
-```
-
-The agent will automatically:
-1. Fetch the SKILL.md file
-2. Read the installation instructions
-3. Install dependencies via pip
-4. Make the skill available for use
-
-**Example usage in prompt:**
-```
-Load the skill from https://raw.githubusercontent.com/shivam2014/nitter-twitter-search/main/SKILL.md
-Then search for recent tweets from @NASA about Mars missions.
-```
-
-### Manual Installation (for development/testing)
+## Install
 
 ```bash
+git clone https://github.com/shivam2014/nitter-twitter-search.git
 cd nitter-twitter-search
 pip install -e .
-playwright install  # Required for browser automation
 ```
 
-## Usage Patterns
+Optional but recommended, for instances that fingerprint the browser:
 
-### 1. Search User Tweets
+```bash
+pip install -e '.[camoufox]'
+camoufox fetch
+```
 
-**Goal:** Get recent tweets from a specific user
+If neither Camoufox nor a Chromium is present, the tool still works for RSS
+endpoints and says so clearly instead of hanging.
+
+## Option A: MCP tools (best for agents)
+
+The package ships a stdio MCP server. Register it once:
+
+```bash
+opencode mcp add nitter --global -- nitter-search-mcp
+```
+
+That yields three native tools:
+
+| Tool | Use it for |
+|------|------------|
+| `nitter_user_tweets` | A person's timeline, newest first. Fastest path. |
+| `nitter_search_tweets` | Keyword, date-scoped, or filtered search. |
+| `nitter_list_nitter_instances` | Which mirrors are reachable right now. |
+
+The server keeps one browser alive between calls, so the second search is much
+faster than the first. It also remembers which instances work.
+
+## Option B: CLI
+
+```bash
+nitter-search --user NASA --limit 10
+nitter-search --query "mars rover" --since 2026-10-01 --until 2026-10-26
+nitter-search --user elonmusk --query AI --stats --limit 5
+nitter-search --check
+nitter-search --list-instances
+```
+
+Exit codes: `0` success, `1` transport failure, `2` protected or missing account,
+`3` no results.
+
+## Option C: Python
 
 ```python
-from nitter_search.browser_scraper import scrape_user_tweets_camoufox
+from nitter_search import search_tweets
 
-result = scrape_user_tweets_camoufox(
-    username="NASA",
-    max_tweets=10
-)
-
-# Process results
-for tweet in result['tweets']:
-    print(tweet['text'])
+result = search_tweets(user="NASA", limit=10)
+for tweet in result["tweets"]:
+    print(tweet["date"], tweet["text"])
 ```
 
-**Returns:**
+Set `with_stats=True` to collect likes, replies, retweets and views.
+
+## Result shape
+
 ```json
 {
   "search_metadata": {
-    "query": null,
     "user": "NASA",
+    "query": null,
+    "since": null,
+    "until": null,
+    "limit": 10,
+    "timestamp": "2026-10-26T15:22:54Z",
+    "mirror_used": "https://nitter.netbub.com",
+    "method": "rss",
+    "total": 10,
     "private_profile": false,
-    "timestamp": "2026-03-24T20:30:00Z",
-    "mirror_used": "https://nitter.net",
-    "method": "camoufox"
+    "error": null,
+    "instances_tried": [{"url": "https://nitter.netbub.com", "ok": true, "method": "rss"}]
   },
   "tweets": [
     {
-      "text": "Tweet content...",
-      "likes": 1234,
-      "replies": 56,
-      "retweets": 789,
-      "views": 12345
+      "id": "2114484649430798432",
+      "url": "https://nitter.netbub.com/NASA/status/2114484649430798432",
+      "text": "Tweet text",
+      "date": "2026-10-25T22:30:00Z",
+      "author": "NASA",
+      "author_name": "NASA",
+      "likes": null,
+      "replies": null,
+      "retweets": null,
+      "views": null,
+      "is_retweet": false,
+      "retweeted_by": null,
+      "quote": null,
+      "pinned": false,
+      "media": []
     }
   ]
 }
 ```
 
-### 2. Search with Query Filter
+`method: "rss"` means counts are `null` by design. `method: "browser"` fills them.
 
-**Goal:** Find tweets containing specific keywords from a user
+## Error handling
 
-```python
-result = scrape_user_tweets_camoufox(
-    username="elonmusk",
-    query="AI",
-    max_tweets=20
-)
-```
+Read `search_metadata.error` first, then `instances_tried` to see why each mirror
+was dropped. The common ones:
 
-This searches Elon Musk's tweets for those containing "AI".
+| Symptom | Meaning | What to do |
+|---------|---------|-----------|
+| `challenge` | Proof-of-work or Cloudflare gate | Retry; it clears once the browser solves it |
+| `rate limited` | Mirror exhausted its backend tokens | Wait, or let health memory skip it |
+| `Search is disabled` | Mirror turned search off | Use `--user` (timeline) instead |
+| `No results` | Terminal: bad handle, empty range, or deleted content | Widen the dates or check the handle |
+| `Every instance failed` | All candidates refused | `nitter-search --check` |
 
-### 3. Date Range Search
+## Limits
 
-**Goal:** Get tweets from a specific time period
+- Public mirrors are best-effort. Treat any single call as flaky.
+- RSS returns at most one page (about twenty tweets). Ask for more and the tool
+  switches to the browser to paginate.
+- Date filters are server-side and inclusive per Twitter's semantics, so an
+  `until` bound excludes that day's later tweets. Widen by a day when in doubt.
+- Protected accounts, deleted tweets, and age-restricted media are not reachable.
 
-```python
-result = scrape_user_tweets_camoufox(
-    username="NASA",
-    start_date="2026-03-23",
-    end_date="2026-03-24",
-    max_tweets=50
-)
-```
+## See also
 
-**URL constructed:** `https://nitter.net/NASA/search?f=tweets&q=&since=2026-03-23&until=2026-03-24`
-
-**Date format:** `YYYY-MM-DD` (ISO 8601)
-
-### 4. Advanced Filters
-
-**Goal:** Filter by engagement metrics
-
-```python
-# Note: Nitter URL parameters for min_faves, min_retweets, etc.
-# These are passed via the mirror URL if needed
-
-result = scrape_user_tweets_camoufox(
-    username="NASA",
-    query="Mars mission",
-    start_date="2026-01-01",
-    end_date="2026-12-31",
-    max_tweets=100
-)
-
-# Filter results in Python by engagement
-high_engagement = [
-    t for t in result['tweets']
-    if (t.get('likes') or 0) > 1000
-]
-```
-
-## API Reference
-
-### `scrape_user_tweets_camoufox()`
-
-Main function for scraping tweets via Camoufox browser automation.
-
-**Parameters:**
-
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `username` | str | Yes | - | Twitter username (without @) |
-| `query` | str | No | None | Search query to filter tweets |
-| `start_date` | str | No | None | Start date (YYYY-MM-DD) |
-| `end_date` | str | No | None | End date (YYYY-MM-DD) |
-| `max_tweets` | int | No | 100 | Maximum tweets to return |
-| `mirror` | str | No | "https://nitter.net" | Nitter instance URL |
-
-**Returns:**
-
-```python
-{
-    "search_metadata": {
-        "query": str | None,        # Search query used
-        "user": str,                # Username searched
-        "private_profile": bool,    # True if profile is private
-        "error": str | None,        # Error message if any
-        "timestamp": str,           # ISO 8601 timestamp
-        "mirror_used": str,         # Nitter instance used
-        "method": str               # Scraping method ("camoufox")
-    },
-    "tweets": [
-        {
-            "text": str,            # Tweet text content
-            "date": str | None,     # Tweet date (if available)
-            "likes": int | None,    # Like count
-            "replies": int | None,  # Reply count
-            "retweets": int | None, # Retweet count
-            "views": int | None     # View count
-        }
-    ]
-}
-```
-
-**Raises:**
-
-- `Exception` if browser automation fails (returned in error field)
-
-## Error Handling
-
-### Private Profile Detection
-
-```python
-result = scrape_user_tweets_camoufox(username="private_user")
-
-if result['search_metadata'].get('private_profile'):
-    print("This account is private")
-    return []
-
-# Process public tweets
-return result['tweets']
-```
-
-### Nitter Instance Fallback
-
-```python
-instances = [
-    "https://nitter.net",
-    "https://nitter.moe",
-    "https://nitter.pussthecat.org"
-]
-
-for mirror in instances:
-    result = scrape_user_tweets_camoufox(
-        username="NASA",
-        mirror=mirror,
-        max_tweets=10
-    )
-    
-    if result['tweets']:
-        break  # Success!
-```
-
-### Timeout Handling
-
-```python
-import signal
-
-def timeout_handler(signum, frame):
-    raise TimeoutError("Search took too long")
-
-# Set 30-second timeout
-signal.signal(signal.SIGALRM, timeout_handler)
-signal.alarm(30)
-
-try:
-    result = scrape_user_tweets_camoufox(username="NASA")
-    signal.alarm(0)  # Cancel timeout
-except TimeoutError:
-    result = {"tweets": [], "search_metadata": {"error": "Timeout"}}
-```
-
-## CLI Usage (for testing)
-
-```bash
-# Install package first
-pip install -e .
-
-# Run searches via CLI
-nitter-search --user "NASA" --max-tweets 10
-nitter-search --user "elonmusk" --query "AI" --start-date "2026-03-01"
-```
-
-## Integration Examples
-
-### Claude Code Skill Usage
-
-Add to your `.claude/skills/nitter-twitter-search/SKILL.md` (this file). Then in your prompts:
-
-```
-Use the nitter-twitter-search skill to find recent tweets from @NASA about Mars missions.
-```
-
-The agent will automatically load and use the skill.
-
-### Hermes Agent Integration
-
-```python
-# In your agent code
-from nitter_search.browser_scraper import scrape_user_tweets_camoufox
-
-def get_twitter_context(username: str, topic: str = None) -> list:
-    """Get relevant tweets for context"""
-    result = scrape_user_tweets_camoufox(
-        username=username,
-        query=topic,
-        max_tweets=20
-    )
-    
-    return [t['text'] for t in result['tweets'][:5]]
-```
-
-## Limitations
-
-1. **Rate limiting:** Nitter instances may rate limit frequent requests
-2. **No real-time data:** Nitter caches data, may not be instant
-3. **Private accounts:** Cannot access private profile tweets
-4. **Deleted tweets:** Not recoverable if deleted from Twitter
-5. **Browser required:** Needs Playwright browsers installed
-6. **Date accuracy:** Tweet dates may not always be extracted
-
-## Best Practices
-
-1. **Cache results:** Store tweet data to avoid repeated scraping
-2. **Respect rate limits:** Add delays between requests (>5 seconds)
-3. **Use multiple mirrors:** Have fallback Nitter instances ready
-4. **Handle errors gracefully:** Always check for `private_profile` and `error` fields
-5. **Limit max_tweets:** Don't request more than needed (default 100 is reasonable)
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| "Camoufox not installed" | `pip install camoufox playwright && playwright install` |
-| No tweets found | Check if user has public tweets, try different date range |
-| Rate limited | Switch Nitter mirror or add delays between requests |
-| Private profile | Tool correctly detects this; cannot scrape private accounts |
-| Browser errors | Run `playwright install --force` to reinstall browsers |
-
-## See Also
-
-- [README.md](README.md) - Full documentation and examples
-- [docs/filters-reference.md](docs/filters-reference.md) - Nitter filter syntax
-- [docs/nitter-instances.md](docs/nitter-instances.md) - Available Nitter mirrors
-- [examples/](examples/) - Usage example scripts
-
-## License
-
-MIT License - Free for open and closed source use.
+- [README.md](README.md) — overview, install, examples
+- [docs/api.md](docs/api.md) — full Python and CLI reference
+- [docs/filters-reference.md](docs/filters-reference.md) — Nitter filter syntax
+- [docs/nitter-instances.md](docs/nitter-instances.md) — how discovery works

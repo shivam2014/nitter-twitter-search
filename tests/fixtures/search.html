@@ -1,0 +1,799 @@
+<!DOCTYPE html><html lang="en"><head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css?v=106">
+    <link rel="stylesheet" type="text/css" href="/css/fontello.css?v=7">
+    <link rel="stylesheet" type="text/css" href="/css/themes/nitter.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff6c60">
+    <link rel="search" type="application/opensearchdescription+xml" title="nitter" href="https://nitter.netbub.com/opensearch">
+    <link rel="alternate" href="https://x.com/search?f=live&amp;q=include%3Anativeretweets+mars+rover&amp;src=typed_query" title="View on X">
+    <link rel="alternate" type="application/rss+xml" href="/search/rss?f=tweets&amp;q=mars+rover" title="RSS feed">
+    <script src="/js/hls.min.js" defer=""></script>
+    <script src="/js/hlsPlayback.js?v=1" defer=""></script>
+    <script src="/js/keybinds.js" defer=""></script>
+    <title>Search (mars rover) | nitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="same-origin">
+    <meta name="theme-color" content="#1F1F1F">
+    <meta property="og:type" content="object">
+    <meta property="og:title" content="Search (mars rover)">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="Nitter">
+    <meta property="og:locale" content="en_US">
+    <link rel="preload" type="font/woff2" as="font" href="/fonts/fontello.woff2?59696369" crossorigin="anonymous">
+  </head>
+  <body class="fixed-nav">
+    <nav><div class="inner-nav">
+        <div class="nav-item"><a class="site-name" href="/">nitter</a></div>
+        <a href="/"><img class="site-logo" src="/logo.png" alt="Logo"></a>
+        <div class="nav-item right">
+          <div class="icon-container"><a class="icon-search" title="Search" href="/search"></a></div>
+          <div class="icon-container"><a class="icon-rss" title="RSS Feed" href="/search/rss?f=tweets&amp;q=mars+rover"></a></div>
+          <div class="icon-container"><a class="icon-bird" title="Open in X" href="https://x.com/search?f=live&amp;q=include%3Anativeretweets+mars+rover&amp;src=typed_query"></a></div>
+          <div class="icon-container"><a class="icon-info" title="About" href="/about"></a></div>
+          <div class="icon-container"><a class="icon-cog" title="Preferences" href="/settings?referer=%2Fsearch%3Fq%3Dmars%2Brover%26f%3Dtweets"></a></div>
+        </div>
+      </div></nav>
+    <div class="container"><div class="timeline-container">
+        <div class="timeline-header"><form class="search-field" method="get" action="/search" autocomplete="off">
+            <input name="f" value="tweets" style="display: none; ">
+            <div class="pref-group pref-input pref-inline" title="q"><input name="q" type="text" placeholder="Enter search..." value="mars rover"></div>
+            <button type="submit"><div class="icon-container"><span class="icon-search" title=""></span></div></button>
+            <input id="search-panel-toggle" type="checkbox">
+            <label for="search-panel-toggle"><div class="icon-container"><span class="icon-down" title=""></span></div></label>
+            <div class="search-panel">
+              <span class="search-title">Filter</span>
+              <div class="search-toggles">
+                <label class="pref-group checkbox-container" title="f-nativeretweets">Retweets<input name="f-nativeretweets" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-media">Media<input name="f-media" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-videos">Videos<input name="f-videos" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-news">News<input name="f-news" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-native_video">Native videos<input name="f-native_video" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-replies">Replies<input name="f-replies" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-links">Links<input name="f-links" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-images">Images<input name="f-images" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-quote">Quotes<input name="f-quote" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="f-spaces">Spaces<input name="f-spaces" type="checkbox"><span class="checkbox"></span></label>
+              </div>
+              <span class="search-title">Exclude</span>
+              <div class="search-toggles">
+                <label class="pref-group checkbox-container" title="e-nativeretweets">Retweets<input name="e-nativeretweets" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-media">Media<input name="e-media" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-videos">Videos<input name="e-videos" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-news">News<input name="e-news" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-native_video">Native videos<input name="e-native_video" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-replies">Replies<input name="e-replies" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-links">Links<input name="e-links" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-images">Images<input name="e-images" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-quote">Quotes<input name="e-quote" type="checkbox"><span class="checkbox"></span></label>
+                <label class="pref-group checkbox-container" title="e-spaces">Spaces<input name="e-spaces" type="checkbox"><span class="checkbox"></span></label>
+              </div>
+              <div class="search-row">
+                <div>
+                  <span class="search-title">Time range</span>
+                  <div class="date-range">
+                    <span class="date-input">
+                      <input name="since" type="date" value="">
+                      <div class="icon-container"><span class="icon-calendar" title=""></span></div>
+                    </span>
+                    <span class="search-title">-</span>
+                    <span class="date-input">
+                      <input name="until" type="date" value="">
+                      <div class="icon-container"><span class="icon-calendar" title=""></span></div>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <span class="search-title">Minimum likes</span>
+                  <div class="pref-group pref-input "><input name="min_faves" type="number" placeholder="Number..." value="" min="0" step="1"></div>
+                </div>
+              </div>
+            </div>
+          </form></div>
+        <ul class="tab">
+          <li class="tab-item"><a href="?f=top&amp;q=mars+rover">Top</a></li>
+          <li class="tab-item active"><a href="?f=tweets&amp;q=mars+rover">Latest</a></li>
+          <li class="tab-item"><a href="?f=media&amp;q=mars+rover">Media</a></li>
+          <li class="tab-item"><a href="?f=users&amp;q=mars+rover">Users</a></li>
+          <li class="tab-item"><a href="?f=lists&amp;q=mars+rover">Lists</a></li>
+        </ul>
+        <div class="timeline">
+          <div class="timeline-item " data-username="SETIInstitute">
+            <a class="tweet-link" href="/SETIInstitute/status/2114734445089423862#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/SETIInstitute"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1902424831146258435/7uvFwb1y_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/SETIInstitute" title="The SETI Institute">The SETI Institute</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/SETIInstitute" title="@SETIInstitute">@SETIInstitute</a>
+                    </div>
+                    <span class="tweet-date"><a href="/SETIInstitute/status/2114734445089423862#m" title="Oct 26, 2026 · 3:02 PM UTC">3m</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto"><a href="/search?f=tweets&amp;q=%23PPOD">#PPOD</a>: Going the Distance on Mars 🔴 
+
+<a href="/NASAPersevere" title="ARCHIVED - NASA's Perseverance Mars Rover">@NASAPersevere</a> has made history! On October 11, 2026, the rover reached a total distance of 45.22 kilometers across <a href="/search?f=tweets&amp;q=%23Mars">#Mars</a>, surpassing the 45.16-kilometer record set by its predecessor, Opportunity. This Navcam image captures Perseverance's tracks stretching across the Martian terrain during the drive that made it the farthest-traveling vehicle on another world.
+
+Since landing in Jezero Crater in February 2021, Perseverance has explored ancient lakebed sediments, collected rock samples, and climbed toward the crater's rim in search of clues to Mars's watery past. Its autonomous navigation system, AutoNav, lets the rover identify obstacles and plan routes with less guidance from Earth, helping it cover more ground across challenging terrain. With new geological targets ahead, Perseverance's record-breaking journey is far from over.
+
+Credit: <a href="/NASA" title="NASA">@NASA</a> <a href="/NASAJPL" title="NASA JPL">@NASAJPL</a> <a href="/Caltech" title="Caltech">@Caltech</a> 
+
+<a href="/search?f=tweets&amp;q=%23planetaryscience">#planetaryscience</a></div>
+              <div class="attachments"><div class="gallery-row" style=""><div class="attachment">
+                    <a class="still-image" href="https://pbs.twimg.com/media/HVkLxPDWMAAmA19.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVkLxPDWMAAmA19.jpg?name=small&amp;format=webp" alt="Wheel tracks left by a rover crossing a sandy, rocky Martian slope dotted with scattered boulders and low ridgelines under a pale sky." loading="lazy"></a>
+                    <p class="alt-text">ALT  Wheel tracks left by a rover crossing a sandy, rocky Martian slope dotted with scattered boulders and low ridgelines under a pale sky.</p>
+                  </div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 2</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 388</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="EuromaidanPress">
+            <a class="tweet-link" href="/EuromaidanPress/status/2114494262897242160#m"></a>
+            <div class="tweet-body">
+              <div>
+                <div class="retweet-header"><span><div class="icon-container"><span class="icon-retweet" title=""></span> Gary Young retweeted</div></span></div>
+                <div class="tweet-header">
+                  <a class="tweet-avatar" href="/EuromaidanPress"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1672682986880286720/2TzS4aLv_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/EuromaidanPress" title="Euromaidan Press">Euromaidan Press</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/EuromaidanPress" title="@EuromaidanPress">@EuromaidanPress</a>
+                    </div>
+                    <span class="tweet-date"><a href="/EuromaidanPress/status/2114494262897242160#m" title="Oct 25, 2026 · 11:08 PM UTC">15h</a></span>
+                  </div>
+                </div>
+              </div>
+              <div class="tweet-content media-body" dir="auto">A Ukrainian ground robot called Marskhid, or Mars Rover, was tested off-road while carrying a 200 kg (441 lb) load
+
+It uses Starlink satellite internet, an onboard computer called JARVIS, and removable batteries 
+🎥 ARMOLAB</div>
+              <div class="attachments card"><div class="gallery-video"><div class="attachment">
+                    <video poster="https://pbs.twimg.com/ext_tw_video_thumb/2114494219167399936/pu/img/pHeI_J9o_CRKNNwX.jpg?name=small&amp;format=webp" controls="" preload="none"><source src="https://video.twimg.com/ext_tw_video/2114494219167399936/pu/vid/avc1/1280x720/7P47HX85DTFxA3-w.mp4?tag=12" type="video/mp4"></video>
+                    <a class="video-download" href="https://video.twimg.com/ext_tw_video/2114494219167399936/pu/vid/avc1/1280x720/7P47HX85DTFxA3-w.mp4?tag=12" download="" title="Download video"><div class="icon-container"><span class="icon-download-alt" title=""></span></div></a>
+                  </div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 3</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 52</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 401</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 11,322</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="XploreDeepSpace">
+            <a class="tweet-link" href="/XploreDeepSpace/status/2114732139791159802#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/XploreDeepSpace"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2033687446014038017/-qCPqbzr_bigger.png" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username"><a class="fullname" href="/XploreDeepSpace" title="Coalition for Deep Space Exploration (CDSE)">Coalition for Deep Space Exploration (CDSE)</a><a class="username" href="/XploreDeepSpace" title="@XploreDeepSpace">@XploreDeepSpace</a></div>
+                    <span class="tweet-date"><a href="/XploreDeepSpace/status/2114732139791159802#m" title="Oct 26, 2026 · 2:53 PM UTC">12m</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto"><a href="/search?f=tweets&amp;q=%23ICYMI">#ICYMI</a> DSE top 3
+NASA's Curiosity rover unveils a spectacular new view of Mars at dawn <a href="https://bit.ly/4yDG3Cn">bit.ly/4yDG3Cn</a>
+Veteran NASA Engineer named Marshall Space Flight Center director <a href="https://bit.ly/4ikZsCc">bit.ly/4ikZsCc</a>
+When will SpaceX and Blue Origin fly to the Moon? <a href="https://bit.ly/3UOloh5">bit.ly/3UOloh5</a></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 52</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="BenthemJoost">
+            <a class="tweet-link" href="/BenthemJoost/status/2062315028494110987#m"></a>
+            <div class="tweet-body">
+              <div>
+                <div class="retweet-header"><span><div class="icon-container"><span class="icon-retweet" title=""></span> Deep Real retweeted</div></span></div>
+                <div class="tweet-header">
+                  <a class="tweet-avatar" href="/BenthemJoost"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1774800726583123968/y25XMg8q_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username"><a class="fullname" href="/BenthemJoost" title="Deep Real">Deep Real</a><a class="username" href="/BenthemJoost" title="@BenthemJoost">@BenthemJoost</a></div>
+                    <span class="tweet-date"><a href="/BenthemJoost/status/2062315028494110987#m" title="Jun 3, 2026 · 11:26 PM UTC">Jun 3</a></span>
+                  </div>
+                </div>
+              </div>
+              <div class="replying-to">Replying to <a href="/elonmusk">@elonmusk</a> <a href="/shaunmmaguire">@shaunmmaguire</a> <a href="/CSarabalis">@CSarabalis</a></div>
+              <div class="tweet-content media-body" dir="auto">"Nasa Mars Rover Accidentally Draws Penis On Red Planet" 
+<a href="https://www.huffingtonpost.co.uk/2013/04/24/mars-rover-penis-nasa_n_3144656.html">huffingtonpost.co.uk/2013/04…</a></div>
+              <div class="attachments"><div class="gallery-row" style=""><div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HJ7QbeEXcAAcPGd.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HJ7QbeEXcAAcPGd.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 2</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 8</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 525</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="theobearman">
+            <a class="tweet-link" href="/theobearman/status/2114720727798620313#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/theobearman"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2104113659844718592/_0f8KHM2_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/theobearman" title="Theo Bearman">Theo Bearman</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/theobearman" title="@theobearman">@theobearman</a>
+                    </div>
+                    <span class="tweet-date"><a href="/theobearman/status/2114720727798620313#m" title="Oct 26, 2026 · 2:08 PM UTC">57m</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">Anthropic: "NASA engineers used Claude Code to plan and write navigation commands for the Mars Perseverance rover, resulting in the first AI-planned drive on Mars."</div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 36</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="WAX_io">
+            <a class="tweet-link" href="/WAX_io/status/2114718800427786254#m"></a>
+            <div class="tweet-body">
+              <div>
+                <div class="retweet-header"><span><div class="icon-container"><span class="icon-retweet" title=""></span> MAGATRON retweeted</div></span></div>
+                <div class="tweet-header">
+                  <a class="tweet-avatar" href="/WAX_io"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1821120657431638016/xrPhTiW6_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/WAX_io" title="WAX">WAX</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/WAX_io" title="@WAX_io">@WAX_io</a>
+                    </div>
+                    <span class="tweet-date"><a href="/WAX_io/status/2114718800427786254#m" title="Oct 26, 2026 · 2:00 PM UTC">1h</a></span>
+                  </div>
+                </div>
+              </div>
+              <div class="tweet-content media-body" dir="auto">NEW: 🪐 Earth Was the Beginning
+
+MMU Frontier by <a href="/martianminer" title="Chadlabs.io">@martianminer</a> is a shared Mars survival game. A suit, a rover, and a patch of ground nobody owns. Runs in your browser, free to enter, nothing to install.
+
+Visit <a href="http://mmu.chadlabs.io">mmu.chadlabs.io</a>.</div>
+              <div class="attachments"><div class="gallery-row" style=""><div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVj6Bo-WcAA9qMI.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVj6Bo-WcAA9qMI.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 11</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 1,304</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="dandaIorian">
+            <a class="tweet-link" href="/dandaIorian/status/2114384690081919174#m"></a>
+            <div class="tweet-body">
+              <div>
+                <div class="retweet-header"><span><div class="icon-container"><span class="icon-retweet" title=""></span> veronica mars rover retweeted</div></span></div>
+                <div class="tweet-header">
+                  <a class="tweet-avatar" href="/dandaIorian"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2067203687601098752/74cWVqUG_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username"><a class="fullname" href="/dandaIorian" title="daniel">daniel</a><a class="username" href="/dandaIorian" title="@dandaIorian">@dandaIorian</a></div>
+                    <span class="tweet-date"><a href="/dandaIorian/status/2114384690081919174#m" title="Oct 25, 2026 · 3:52 PM UTC">23h</a></span>
+                  </div>
+                </div>
+              </div>
+              <div class="tweet-content media-body" dir="auto">fell to my knees and started weeping he is so beautiful</div>
+              <div class="quote quote-big">
+                <a class="quote-link" href="/strawiberi/status/2114293388895764809#m"></a>
+                <div class="tweet-name-row">
+                  <div class="fullname-and-username"><img class="avatar round mini" src="https://pbs.twimg.com/profile_images/2110405026011099136/9CsISVBj_mini.jpg" alt="" loading="lazy"><a class="fullname" href="/strawiberi" title="Sugar">Sugar</a><a class="username" href="/strawiberi" title="@strawiberi">@strawiberi</a></div>
+                  <span class="tweet-date"><a href="/strawiberi/status/2114293388895764809#m" title="Oct 25, 2026 · 9:50 AM UTC">Oct 25</a></span>
+                </div>
+                <div class="quote-text" dir="auto">Meteor wild palomino pinto mustang stallion Colorado, USA</div>
+                <div class="quote-media-container"><div class="attachments">
+                    <div class="gallery-row" style="">
+                      <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVa81cwXsAEOQTC.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVa81cwXsAEOQTC.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                      <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVa81dMXAAAAfHi.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVa81dMXAAAAfHi.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                    </div>
+                    <div class="gallery-row" style="margin-top: .25em; "><div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVa81c5WUAAxZeF.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVa81c5WUAAxZeF.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div></div>
+                  </div></div>
+              </div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 7</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 1,032</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 19,434</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 176,584</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="1littlecoder">
+            <a class="tweet-link" href="/1littlecoder/status/2114714869324976224#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/1littlecoder"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1491057237132931076/g60gGrFL_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/1littlecoder" title="1LittleCoder💻">1LittleCoder💻</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/1littlecoder" title="@1littlecoder">@1littlecoder</a>
+                    </div>
+                    <span class="tweet-date"><a href="/1littlecoder/status/2114714869324976224#m" title="Oct 26, 2026 · 1:44 PM UTC">1h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">I asked Opus 5.5 to give me the top 10 critical points!
+
+0. "a country of geniuses in a data center" 
+Anthropic says it is working toward Claude handling open-ended tasks that last days or weeks, with millions of AI “Virtual Collaborators” running in parallel. The filing calls the end result “a country of geniuses in a data center,” available to every organization.
+
+1. The growth curve
+Anthropic's revenue went from $41M in 2023 to $386M in 2024 to $4.59B in 2025, and hit $16.3B in just the first half of 2026, versus $1.16B in H1 2025. That's about 14x year over year.
+
+2. Customers keep spending more
+Net Revenue Retention was roughly 900% as of Sept 30, 2026. On average, existing customers are spending about 9x what they spent a year ago. For context, strong SaaS companies usually report 110–130%.
+
+3. Big customers
+As of Sept 30, 2026, over 11,900 customers spent $100K+, over 1,900 spent $1M+, and about 250 spent $10M+ on a trailing-twelve-month basis.
+
+4. Revenue is growing faster than compute costs
+In Q2 2026, revenue grew 1,368% year over year while compute and infrastructure expenses grew 300%. That gap is the core of the bull case.
+
+5. Profitable on an adjusted basis
+Adjusted operating income flipped from a $4.85B loss in 2025 to a $1.6B profit in H1 2026, a 10% adjusted margin. On a GAAP basis, the operating loss narrowed from $8.06B to $693M.
+
+6. The $80B loss explained
+The H1 2026 net loss was $80.7B, but $72.4B of it came from changes in the fair value of convertible notes and similar instruments, driven mostly by the company's rising valuation. In other words, much of the loss is non-cash and comes from the company being worth more.
+
+7. Revenue per employee
+Trailing-twelve-month revenue per employee was over $6.6M as of Sept 2026, up from $1.4M a year earlier. The company says this is partly because its teams use Claude extensively in their own work.
+
+8. Anthropic’s AGI-style prediction
+The S-1 says Anthropic expects “Powerful AI” to be widely available within a few years. It describes this as AI that matches or beats top human experts in most professional and scientific fields, can work on its own for hours, days, or weeks, coordinates with other AI systems, and can operate lab equipment and robots.
+
+9. Equity set aside for public benefit
+Anthropic put 5% of its fully diluted shares into a Public Benefit Fund. The board can add up to another 2% each time the stock rises 50% above its previous milestone, and each co-founder has pledged 80% of their personal equity to philanthropy.
+
+10. A notable risk factor
+The filing warns that using Claude to build future Claude models could make capabilities advance faster than safety measures can keep up. It also says the company has delayed or limited releases before, citing Mythos and Project Glasswing, and may do so again even if it hurts competitiveness.
+
+Bonus: 
+
+Anthropic has raised $141.1B in total and held about $131.7B in cash and short-term investments as of June 30, 2026. Sales and marketing spending jumped from $120M in H1 2025 to $3.17B in H1 2026. NASA engineers used Claude Code to plan the first AI-planned drive of the Mars Perseverance rover.</div>
+              <div class="quote quote-big">
+                <a class="quote-link" href="/AnthropicAI/status/2114705042817110293#m"></a>
+                <div class="tweet-name-row">
+                  <div class="fullname-and-username">
+                    <img class="avatar round mini" src="https://pbs.twimg.com/profile_images/1798110641414443008/XP8gyBaY_mini.jpg" alt="" loading="lazy">
+                    <a class="fullname" href="/AnthropicAI" title="Anthropic">Anthropic</a>
+                    <div class="verified-icon business">
+                      <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified business account"></span></div>
+                      <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified business account"></span></div>
+                    </div>
+                    <a class="username" href="/AnthropicAI" title="@AnthropicAI">@AnthropicAI</a>
+                  </div>
+                  <span class="tweet-date"><a href="/AnthropicAI/status/2114705042817110293#m" title="Oct 26, 2026 · 1:05 PM UTC">2h</a></span>
+                </div>
+                <div class="quote-text" dir="auto">Anthropic has filed an S-1 registration statement with the SEC related to its proposed IPO.
+
+Read more: <a href="https://www.anthropic.com/news/s1-sec">anthropic.com/news/s1-sec</a>
+
+Legal disclaimer: A registration statement relating to these securities has been filed with the SEC but has not yet become effective. These securities may not be sold, nor may offers to buy be accepted, prior to the time the registration statement becomes effective. This post does not constitute an offer to sell or the solicitation of an offer to buy these securities, nor shall there be any sale of these securities in any state or jurisdiction in which such offer, solicitation or sale would be unlawful prior to registration or qualification under the securities laws of any such state or jurisdiction.</div>
+              </div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 5</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 968</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="astronomytodayy">
+            <a class="tweet-link" href="/astronomytodayy/status/2114477100262625621#m"></a>
+            <div class="tweet-body">
+              <div>
+                <div class="retweet-header"><span><div class="icon-container"><span class="icon-retweet" title=""></span> Плямистий, але смугастий retweeted</div></span></div>
+                <div class="tweet-header">
+                  <a class="tweet-avatar" href="/astronomytodayy"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1969405467697754112/tcVIiKln_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/astronomytodayy" title="Astronomy Today">Astronomy Today</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/astronomytodayy" title="@astronomytodayy">@astronomytodayy</a>
+                    </div>
+                    <span class="tweet-date"><a href="/astronomytodayy/status/2114477100262625621#m" title="Oct 25, 2026 · 10:00 PM UTC">17h</a></span>
+                  </div>
+                </div>
+              </div>
+              <div class="tweet-content media-body" dir="auto">I noticed something odd in the footage sent from NASA's Mars rover.</div>
+              <div class="attachments card"><div class="gallery-video"><div class="attachment">
+                    <video poster="https://pbs.twimg.com/amplify_video_thumb/2114341845333692416/img/nUHND8sZWPAJO-VL.jpg?name=small&amp;format=webp" controls="" preload="none"><source src="https://video.twimg.com/amplify_video/2114341845333692416/vid/avc1/704x1280/CRLsyA-FbUTKAQmB.mp4?tag=29" type="video/mp4"></video>
+                    <a class="video-download" href="https://video.twimg.com/amplify_video/2114341845333692416/vid/avc1/704x1280/CRLsyA-FbUTKAQmB.mp4?tag=29" download="" title="Download video"><div class="icon-container"><span class="icon-download-alt" title=""></span></div></a>
+                  </div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 6</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 7</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 38</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 2,197</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="FrontRowBrian">
+            <a class="tweet-link" href="/FrontRowBrian/status/2114711483644821542#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/FrontRowBrian"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1990805845492252672/abXbe8MK_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/FrontRowBrian" title="FrontRowBrian™ 🇺🇸 ₿">FrontRowBrian™ 🇺🇸 ₿</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/FrontRowBrian" title="@FrontRowBrian">@FrontRowBrian</a>
+                    </div>
+                    <span class="tweet-date"><a href="/FrontRowBrian/status/2114711483644821542#m" title="Oct 26, 2026 · 1:31 PM UTC">1h</a></span>
+                  </div>
+                </div></div>
+              <div class="replying-to">Replying to <a href="/EliStrawmaning">@EliStrawmaning</a></div>
+              <div class="tweet-content media-body" dir="auto">Fortune 500 enterprises- AIG, Bristol Myers Squibb
+
+Companies building their products on Claude- Salesforce, Legora (legal AI)
+
+Research institutions- Garvan Institute, Gladstone Institutes, UCSF
+
+Government- NASA (used Claude Code to plan a Mars Perseverance rover drive). Government agencies overall are only about 1% of revenue.
+
+Distribution partners (sell Claude to others; not customers)- AWS, Google Cloud, Azure, Accenture, Deloitte, KPMG, PwC, Snowflake. 
+
+These aren't the largest customers. Those are anonymized. But these were the organizations listed in the S-1.</div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 2</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 32</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="Th3Seafox">
+            <a class="tweet-link" href="/Th3Seafox/status/2114710076615229687#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/Th3Seafox"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1954708441819156480/gh0UaPSY_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/Th3Seafox" title="TheSeafox">TheSeafox</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/Th3Seafox" title="@Th3Seafox">@Th3Seafox</a>
+                    </div>
+                    <span class="tweet-date"><a href="/Th3Seafox/status/2114710076615229687#m" title="Oct 26, 2026 · 1:25 PM UTC">1h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">How does the market feel about this Anthropic S-1? <a href="/search?f=tweets&amp;q=%23ANT">$ANT</a>
+
+Customers (as of Sep 30, 2026)
+
+-&gt;More than 11,900 customers with ≥$100k revenue on a TTM basis
+-&gt;More than 1,900 customers with ≥$1M TTM
+-&gt;About 250 customers with ≥$10M TTM
+-&gt;Net Revenue Retention ~900%
+-&gt;TTM revenue per employee &gt;$6.6M (was $1.4M a year earlier)
+-&gt;Risk section flags a limited number of customers / channels drive a substantial share of revenue (filing does not name the top two)
+
+Named companies / partners
+
+-&gt;Cloud distribution: Amazon Web Services, Google Cloud Platform, Microsoft Azure
+-&gt;Compute chips: AWS Trainium, Google TPUs, NVIDIA GPUs, AMD GPUs
+-&gt;Systems integrators: Accenture, Deloitte, KPMG, PwC
+-&gt;Data platforms: Salesforce, Snowflake
+-&gt;Amazon Web Services, Inc. holds convertible notes that convert into Class N at IPO (Amazon Notes)
+-&gt;Customer example: NASA used Claude Code for Mars Perseverance rover navigation commands
+-&gt;Ode with Anthropic — AI services co. launched with leading private equity firms
+-&gt;Lead underwriters: Goldman Sachs &amp; Co. LLC, Morgan Stanley (plus a long bank syndicate)
+
+Revenue
+
+-&gt;2023: $41M
+-&gt;2024: $386M
+-&gt;2025: $4.585B
+-&gt;H1 2025: $1.163B
+-&gt;H1 2026: $16.286B
+-&gt;Claims revenue grew 1,368% YoY for the three months ended Jun 30, 2026
+-&gt;Commercial launch Q1 2023 from $0; Q3 2026 revenue figure is blanked in this draft ($)
+
+Compute / spend
+
+-&gt;Compute &amp; infrastructure: FY25 $7.326B; H1’25 $2.334B; H1’26 $8.945B
+-&gt;Compute expense grew 300% in that same H1 comparison window
+-&gt;Long-term purchase/lease commitments: dollar totals are blanked ($) in this public draft as of/after Sep 30, 2026 — described as substantially all compute/infra, with most spend through 2030 and some out to 2045
+
+Cash / capital
+
+-&gt;Aggregate capital raised: $141.1B (as of Jun 30, 2026)
+-&gt;Cash &amp; equivalents: $112.4B
+-&gt;Short-term investments: $19.3B
+-&gt;Cash + ST investments: $131.7B
+-&gt;Total assets: $147.4B; total liabilities: $117.5B
+-&gt;Accumulated deficit: $(132.9)B
+
+P&amp;L / other
+
+-&gt;Operating loss H1’26: $(693)M (vs $(2.135)B H1’25)
+-&gt;Net loss H1’26: $(80.748)B — of which $(72.388)B is FV mark on convertibles / derivatives / SAFEs
+Adjusted operating income H1’26: $1.618B; adjusted operating margin 10%
+-&gt;Stock-based comp H1’26: $2.2B
+-&gt;2025 includes $1.5B “Bartz settlement”
+-&gt;Weighted-average shares outstanding H1’26: ~2.025B
+
+Products / usage claims
+
+-&gt;Claude (models, platform, apps)
+-&gt;Claude Code (coding agent)
+-&gt;Claude Cowork (knowledge-work agent; research preview Jan 2026)
+-&gt;<a href="http://Claude.ai">Claude.ai</a> merging with Cowork (Sep 2026)
+-&gt;Claude Opus 5.5: ~40% lower customer cost per task vs Claude Opus 5
+-&gt;Constitutional AI; Model Hardware Standard (robotics / lab equipment)
+
+Governance / structure
+
+-&gt;Delaware public benefit corp; incorporated Jan 2021
+-&gt;HQ: 548 Market Street PMB 90375, San Francisco
+-&gt;Proposed Nasdaq ticker: ANT
+-&gt;Co-founders: Dario Amodei, Daniela Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, Christopher Olah
+-&gt;Class F (Founder LLC): 50.1% of total voting power
+-&gt;Class T (Long-Term Benefit Trust): elects a majority of the board
+-&gt;Controlled company under Nasdaq rules
+Public Benefit Fund got 846,840,960 Class N shares = 5% of fully diluted shares as of Jun 30, 2026
+-&gt;Co-founders each pledged 80% of personal Anthropic equity to philanthropy
+-&gt;10-for-1 Class A/N forward split on Sep 17, 2026
+
+Not disclosed yet in this S-1
+
+-&gt;IPO price range, share count, and raise size (still $ / shares)
+-&gt;Aggregate dollar amount of compute commitments (blanked)
+-&gt;Names of the largest revenue customers</div>
+              <div class="attachments"><div class="gallery-row" style=""><div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjy2YkW8AAHjwF.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjy2YkW8AAHjwF.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 96</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="MarcelLarsen_">
+            <a class="tweet-link" href="/MarcelLarsen_/status/2114709986328609138#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/MarcelLarsen_"><img class="avatar round" src="https://pbs.twimg.com/profile_images/1903229245276688384/xizid0Xr_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/MarcelLarsen_" title="Marcel">Marcel</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/MarcelLarsen_" title="@MarcelLarsen_">@MarcelLarsen_</a>
+                    </div>
+                    <span class="tweet-date"><a href="/MarcelLarsen_/status/2114709986328609138#m" title="Oct 26, 2026 · 1:25 PM UTC">1h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">From Anthropic's S-1: NASA engineers used Claude Code to plan and write navigation commands for the Mars Perseverance rover.</div>
+              <div class="attachments"><div class="gallery-row" style=""><div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVj1hYRXUAAvt8e.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVj1hYRXUAAvt8e.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div></div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 2</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 5</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 230</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="bossard_joris">
+            <a class="tweet-link" href="/bossard_joris/status/2114705076866383974#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/bossard_joris"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2108656153865396224/059A13af_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/bossard_joris" title="Joris Bossard">Joris Bossard</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/bossard_joris" title="@bossard_joris">@bossard_joris</a>
+                    </div>
+                    <span class="tweet-date"><a href="/bossard_joris/status/2114705076866383974#m" title="Oct 26, 2026 · 1:05 PM UTC">2h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">Résumé de l’actualité spatiale du 19 au 25 octobre
+
+Lundi 19 octobre
+
+Une fusée japonaise H3-24L a décollé à 21h41 (heure de Paris) depuis le pas de tir LA-Y2, à <a href="/search?f=tweets&amp;q=%23Tanegashima">#Tanegashima</a>, au Japon, dans le cadre de la mission <a href="/search?f=tweets&amp;q=%23MMX">#MMX</a>.
+
+Sous sa coiffe se trouvait la sonde <a href="/search?f=tweets&amp;q=%23MMX">#MMX</a>, accompagnée du petit rover franco-allemand <a href="/search?f=tweets&amp;q=%23IDEFIX">#IDEFIX</a>. La mission a pour objectif d’explorer Phobos, l’une des deux lunes de Mars. L’arrivée de la sonde dans l’environnement martien est prévue pour 2027.
+
+Mardi 20 octobre
+
+Une fusée <a href="/search?f=tweets&amp;q=%23Falcon9">#Falcon9</a> de <a href="/SpaceX" title="SpaceX">@SpaceX</a> a décollé à 13h04 (heure de Paris) depuis le complexe de lancement SLC-40, à Cap Canaveral, en Floride, pour la mission Bandwagon-5.
+
+Sous sa coiffe se trouvaient 31 petits satellites ainsi qu’une capsule Starfall.
+
+<a href="/elonmusk" title="Elon Musk">@elonmusk</a> a confirmé que <a href="/SpaceX" title="SpaceX">@SpaceX</a> prévoyait de tenter de récupérer simultanément le vaisseau Ship 42 et le booster B22 lors de l'IFT-15. Celui-ci pourrait avoir lieu en novembre, au plus tôt.
+
+Mercredi 21 octobre
+
+L’entreprise espagnole <a href="/PLD_Space" title="PLD Space">@PLD_Space</a> a annoncé avoir construit trois exemplaires de son lanceur <a href="/search?f=tweets&amp;q=%23Miura5">#Miura5</a>. Les premiers essais sont attendus l’année prochaine en Guyane française.
+
+Jeudi 22 octobre
+
+Dans un document <a href="/search?f=tweets&amp;q=%23CADENA">#CADENA</a>, <a href="/blueorigin" title="Blue Origin">@blueorigin</a> a indiqué que le prochain vol de sa fusée New Glenn pourrait avoir lieu le 28 décembre, au plus tôt.
+
+Vendredi 23 octobre
+
+Une fusée <a href="/search?f=tweets&amp;q=%23Electron">#Electron</a> de <a href="/RocketLab" title="Rocket Lab">@RocketLab</a> a décollé à 09h11 (heure de Paris) depuis le pas de tir LC-1A, dans le cadre de la mission HawkEye 360 Cluster 16.
+
+Sous sa coiffe se trouvaient trois satellites destinés à la constellation <a href="/search?f=tweets&amp;q=%23HawkEye360">#HawkEye360</a>, développés pour le compte de l’entreprise <a href="/search?f=tweets&amp;q=%23HawkEye360">#HawkEye360</a>, avec le soutien du <a href="/search?f=tweets&amp;q=%23SpaceFlightLaboratory">#SpaceFlightLaboratory</a> de l’Université de Toronto.
+
+Les équipes de <a href="/SpaceX" title="SpaceX">@SpaceX</a> ont réalisé le premier test cryogénique du <a href="/search?f=tweets&amp;q=%23Ship43">#Ship43</a> sur le site d’essais de Massey. Ce vaisseau devrait être utilisé lors de l'IFT-16, si tout se passe bien.
+
+Samedi 24 octobre
+
+Une fusée Falcon 9 de <a href="/SpaceX" title="SpaceX">@SpaceX</a> a décollé à 00h48 (heure de Paris) depuis le pas de tir SLC-4E, à Vandenberg, en Californie, pour la mission Starlink 15-15. Sous sa coiffe se trouvaient 27 satellites destinés à la constellation <a href="/Starlink" title="Starlink">@Starlink</a>.
+
+Les équipes de <a href="/SpaceX" title="SpaceX">@SpaceX</a> ont procédé à un deuxième test cryogénique du <a href="/search?f=tweets&amp;q=%23Ship43">#Ship43</a> sur le site d’essais de Massey.
+
+Dimanche 25 octobre
+
+Les équipes de <a href="/SpaceX" title="SpaceX">@SpaceX</a> ont réalisé un essai d’allumage statique des 33 moteurs Raptor du booster B22, depuis le pas de tir B du site de lancement de Starbase, au Texas. Le test a duré environ 15 secondes. 
+
+Pour rappel, le booster B22 devrait être associé au <a href="/search?f=tweets&amp;q=%23Ship42">#Ship42</a> lors du vol d’essai intégré IFT-15, qui pourrait avoir lieu en novembre, au plus tôt.
+
+Images : <a href="/search?f=tweets&amp;q=%23JAXA">#JAXA</a> / <a href="/search?f=tweets&amp;q=%23SpaceX">#SpaceX</a> / <a href="/search?f=tweets&amp;q=%23RocketLab">#RocketLab</a></div>
+              <div class="attachments">
+                <div class="gallery-row" style="">
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjwuJfXoAEwRIq.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjwuJfXoAEwRIq.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjwvM4XAAA0p3X.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjwvM4XAAA0p3X.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                </div>
+                <div class="gallery-row" style="margin-top: .25em; ">
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjwwG7WgAApntr.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjwwG7WgAApntr.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjwxbUWIAA9VbO.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjwxbUWIAA9VbO.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                </div>
+              </div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 70</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="MrDasCreates">
+            <a class="tweet-link" href="/MrDasCreates/status/2114703938285150510#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/MrDasCreates"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2099489608006582272/UunROOIJ_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/MrDasCreates" title="Mr Das">Mr Das</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/MrDasCreates" title="@MrDasCreates">@MrDasCreates</a>
+                    </div>
+                    <span class="tweet-date"><a href="/MrDasCreates/status/2114703938285150510#m" title="Oct 26, 2026 · 1:01 PM UTC">2h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">Prompt: A detailed tilt-shift macro video of a miniature Mars exploration colony on a spectacular red desert landscape beneath a dusty orange sky. Tiny, exquisitely detailed miniature astronauts in white and orange spacesuits actively exploring the Martian terrain, collecting glowing mineral samples, drilling into rusty red rocks, and carefully placing scientific instruments beside miniature research stations. Tiny futuristic robotic rovers driving slowly across rippled red sand dunes, their wheels leaving clearly visible tracks, while robotic arms collect soil samples and miniature drones fly low over the rocky surface scanning the terrain. Small handcrafted futuristic habitat domes with transparent resin windows, miniature solar panel arrays rotating toward the sunlight, tiny communication antennas turning slowly, and miniature scientists working inside illuminated laboratory modules. Miniature astronauts unloading equipment from a small spacecraft, carrying oxygen tanks, repairing a rover wheel, and planting a tiny experimental greenhouse filled with miniature green plants inside a transparent dome. Tiny robotic excavators digging trenches, conveyor belts transporting reddish Martian soil, and miniature cargo vehicles moving between interconnected research modules. Fine red dust swirling around the astronauts’ boots as a miniature spacecraft descends toward a landing pad, kicking up realistic clouds of orange dust. In the distant background, towering rust-colored mountains, enormous ancient craters, scattered meteorites, and the tiny blue Earth visible in the dark cosmic sky. Warm low-angle sunlight casting long dramatic shadows across the miniature Martian settlement, highlighting detailed footprints, metallic spacecraft surfaces, dusty rover tracks, and rugged rock formations. Cinematic tilt-shift camera angle from a high three-quarter perspective, smooth slow camera push-in followed by a gentle lateral pan revealing the busy research colony. Narrow selective focus with creamy shallow depth of field, continuous purposeful movement from astronauts, robots, vehicles, and machinery, realistic dust physics, subtle stop-motion-inspired charm with fluid motion, intricate handcrafted clay, resin, metal, and sand textures, photorealistic miniature sci-fi diorama aesthetic, cinematic science-fiction lighting, scientifically inspired Martian environment, 10-second video, 4K ultra-high definition.</div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 29</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="XFactBook">
+            <a class="tweet-link" href="/XFactBook/status/2114699114747249061#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/XFactBook"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2103925838211129345/Q5sv2SeI_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username"><a class="fullname" href="/XFactBook" title="XFacts">XFacts</a><a class="username" href="/XFactBook" title="@XFactBook">@XFactBook</a></div>
+                    <span class="tweet-date"><a href="/XFactBook/status/2114699114747249061#m" title="Oct 26, 2026 · 12:42 PM UTC">2h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">Source: NASA JPL: NASA's Curiosity Rover Views Serene Sundown on Mars <a href="https://www.jpl.nasa.gov/news/nasas-curiosity-rover-views-serene-sundown-on-mars/">jpl.nasa.gov/news/nasas-curi…</a></div>
+              <div class="card large"><a class="card-container" href="https://www.jpl.nasa.gov/news/nasas-curiosity-rover-views-serene-sundown-on-mars/"><div class="card-content-container"><div class="card-content">
+                      <h2 class="card-title">NASA's Curiosity Rover Views Serene Sundown on Mars | NASA Jet Propulsion Laboratory (JPL)</h2>
+                      <span class="card-destination">jpl.nasa.gov</span>
+                    </div></div></a></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 9</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="KariSivertzen">
+            <a class="tweet-link" href="/KariSivertzen/status/2114696611888550334#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/KariSivertzen"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2105257533841580032/FXBseY9g_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username">
+                      <a class="fullname" href="/KariSivertzen" title="The Sol Anomaly Archive">The Sol Anomaly Archive</a>
+                      <div class="verified-icon blue">
+                        <div class="icon-container"><span class="icon-circle verified-icon-circle" title="Verified blue account"></span></div>
+                        <div class="icon-container"><span class="icon-ok verified-icon-check" title="Verified blue account"></span></div>
+                      </div>
+                      <a class="username" href="/KariSivertzen" title="@KariSivertzen">@KariSivertzen</a>
+                    </div>
+                    <span class="tweet-date"><a href="/KariSivertzen/status/2114696611888550334#m" title="Oct 26, 2026 · 12:32 PM UTC">2h</a></span>
+                  </div>
+                </div></div>
+              <div class="tweet-content media-body" dir="auto">Sol 3017: Mast Camera (Mastcam)
+This image was taken by MAST_RIGHT onboard NASA's Mars rover Curiosity on Sol 3017 (2021-01-31T02:04:54.000Z)
+
+Credits: NASA/JPL-Caltech/MSSS
+<a href="https://mars.nasa.gov/raw_images/892147/?site=msl">mars.nasa.gov/raw_images/892…</a></div>
+              <div class="attachments"><div class="gallery-row" style="">
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjpKvjXMAAoQa8.png?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjpKvjXMAAoQa8.png?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                  <div class="attachment"><a class="still-image" href="https://pbs.twimg.com/media/HVjpOA8XUAAYMkU.jpg?name=orig" target="_blank"><img src="https://pbs.twimg.com/media/HVjpOA8XUAAYMkU.jpg?name=small&amp;format=webp" alt="" loading="lazy"></a></div>
+                </div></div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span> 2</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 148</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item " data-username="FrightenedAF">
+            <a class="tweet-link" href="/FrightenedAF/status/2114683618408747021#m"></a>
+            <div class="tweet-body">
+              <div><div class="tweet-header">
+                  <a class="tweet-avatar" href="/FrightenedAF"><img class="avatar round" src="https://pbs.twimg.com/profile_images/2052381366512218117/ZqqDoI6Q_bigger.jpg" alt="" loading="lazy"></a>
+                  <div class="tweet-name-row">
+                    <div class="fullname-and-username"><a class="fullname" href="/FrightenedAF" title="Rover Alexa #Smokefleet #StandWithUkraine🇺🇦❤️">Rover Alexa #Smokefleet #StandWithUkraine🇺🇦❤️</a><a class="username" href="/FrightenedAF" title="@FrightenedAF">@FrightenedAF</a></div>
+                    <span class="tweet-date"><a href="/FrightenedAF/status/2114683618408747021#m" title="Oct 26, 2026 · 11:40 AM UTC">3h</a></span>
+                  </div>
+                </div></div>
+              <div class="replying-to">Replying to <a href="/grok">@grok</a></div>
+              <div class="tweet-content media-body" dir="auto">So let me ask. Did theia actually survive (inoor core and outer layer) that formed the initial gravity well post impact? The debris coalescing around it? Debris from Earth carrying potential Amino acid chains could have hot mars or Venus</div>
+              <div class="tweet-stats">
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-comment" title=""></span> 1</div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-retweet" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-heart" title=""></span></div></span>
+                <span class="tweet-stat"><div class="icon-container"><span class="icon-views" title=""></span> 21</div></span>
+              </div>
+            </div>
+          </div>
+          <div class="show-more"><a href="?f=tweets&amp;q=mars+rover&amp;cursor=DAADDAABCgABHVkLxgHWgfYKAAIdWN1T6NZB-wAIAAIAAAACCAADAAAAAAgABAAAAAAKAAUdWQyJVYAnEAoABh1ZDIlVf9jwCwAHAAAA8EVtUEM2d0FBQWZRL2dHSk4wdkdwL0FBQUFCUWRXUFdIUWhhQmNoMVk5dVBoRnNBbUhWanBYVWRXMGI0ZFdQRVFMMVlBWmgxWS9oTEEyckVFSFZqL1RET1hvSmtkV1FtdFExcVIraDFaQzhZQjFvSDJIVmpkaS8rWFVBMGRXUEFIRnBzaExoMVkvWXR6VnFBT0hWajVnb1NYRUtrZFdOOXdWUnJ4N0IxWTY2UUZWOEdsSFZqNlkwNWFNYTBkV1BXY1I1Y0E5eDFZM1ZQbzFrSDdIVmtKdUhGYk1Jc2RXUVNCV05jUkJ4MVkrZmdyV2hCZwAA">Load more</a></div>
+          <div class="top-ref"><div class="icon-container"><a class="icon-down" title="" href="#"></a></div></div>
+        </div>
+      </div></div>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;d8806987e5ad4447a87c213a7809e408&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+</body></html>

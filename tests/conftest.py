@@ -1,14 +1,49 @@
-"""Pytest configuration and fixtures."""
+"""Shared pytest fixtures.
 
-import sys
+Every test runs offline: network calls are monkeypatched and HTTP payloads come
+from ``tests/fixtures``, captured from live instances.
+"""
+
 import os
+import sys
+from pathlib import Path
 
-# Add src to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+import pytest
 
-def pytest_configure(config):
-    """Configure pytest."""
-    # Register custom markers
-    config.addinivalue_line(
-        "markers", "skip_if_no_camoufox: skip test if camoufox not available"
-    )
+SRC = Path(__file__).resolve().parent.parent / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
+
+
+@pytest.fixture(autouse=True)
+def isolated_cache(tmp_path, monkeypatch):
+    """Keep instance/health caches out of the user's real cache directory."""
+    monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path / "cache"))
+    return tmp_path / "cache"
+
+
+@pytest.fixture(scope="session")
+def fixtures_dir() -> Path:
+    return FIXTURES
+
+
+@pytest.fixture(scope="session")
+def profile_html() -> str:
+    return (FIXTURES / "profile.html").read_text()
+
+
+@pytest.fixture(scope="session")
+def search_html() -> str:
+    return (FIXTURES / "search.html").read_text()
+
+
+@pytest.fixture(scope="session")
+def user_rss() -> str:
+    return (FIXTURES / "user_rss.xml").read_text()
+
+
+@pytest.fixture(scope="session")
+def challenge_html() -> str:
+    return (FIXTURES / "challenge.html").read_text()

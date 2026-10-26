@@ -1,31 +1,13 @@
 #!/bin/bash
-# Run all unit tests for nitter-twitter-search
-
-set -e
-
-echo "=========================================="
-echo "Running nitter-twitter-search Unit Tests"
-echo "=========================================="
-echo ""
-
-# Change to script directory
+# Run the test suite. Uses .venv when present, otherwise the active python.
+set -euo pipefail
 cd "$(dirname "$0")"
 
-# Set PYTHONPATH
-export PYTHONPATH="src:$PYTHONPATH"
-
-# Check if pytest is installed
-if ! python3 -m pytest --version > /dev/null 2>&1; then
-    echo "Installing pytest..."
-    python3 -m pip install pytest -q
+if [ -x .venv/bin/python ]; then
+    PY=.venv/bin/python
+else
+    PY=$(command -v python3)
 fi
 
-# Run tests
-echo "Running tests..."
-echo ""
-python3 -m pytest tests/ -v --tb=short --color=yes
-
-echo ""
-echo "=========================================="
-echo "Test run completed!"
-echo "=========================================="
+export PYTHONPATH="src:${PYTHONPATH:-}"
+exec "$PY" -m pytest tests/ "${@:-}"

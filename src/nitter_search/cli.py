@@ -1,173 +1,160 @@
-"""CLI entry point for twitter-search tool."""
+"""Command line interface for nitter-twitter-search."""
+
+from __future__ import annotations
 
 import argparse
 import json
 import sys
-from datetime import datetime
-from typing import Optional, Dict, Any
+from typing import Any, Dict, List, Optional
+
+from . import instances as instances_mod
+from .search import SearchRequest, search
+from .urls import SUPPORTED_FILTERS, ValidationError
+
+EXIT_OK = 0
+EXIT_ERROR = 1
+EXIT_NOT_FOUND = 2
+EXIT_NO_RESULTS = 3
 
 
-def build_search_url(
-    username: Optional[str],
-    query: Optional[str],
-    start_date: Optional[str],
-    end_date: Optional[str],
-    mirror: str
-) -> str:
-    """
-    Build Nitter search URL with server-side date filters.
-    
-    Nitter uses URL parameters for filtering:
-    - f=tweets for tweets only
-    - q=QUERY for text search
-    - since=YYYY-MM-DD for start date
-    - until=YYYY-MM-DD for end date
-    """
-    from urllib.parse import quote, urlencode
-    
-    # Build query string (text to search for)
-    search_query = (query or "").strip()
-    
-    # Determine base URL path
-    if username:
-        base_path = f"{mirror}/{username}/search"
-    else:
-        base_path = f"{mirror}/search"
-    
-    # Build parameters
-    params = {
-        "f": "tweets",  # Filter for tweets only
-        "q": search_query if search_query else ""
-    }
-    
-    # Add date filters as URL parameters (not query syntax)
-    if start_date:
-        params["since"] = start_date
-    if end_date:
-        params["until"] = end_date
-    
-    return f"{base_path}?{urlencode(params)}"
-
-
-def search_twitter(
-    query: str,
-    user: Optional[str] = None,
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
-    max_tweets: int = 100,
-    mirror: str = "https://nitter.net"
-) -> Dict[str, Any]:
-    """
-    Search Twitter via Nitter mirrors using Camoufox browser automation.
-    """
-    try:
-        print(f"Starting Camoufox scrape...", file=sys.stderr)
-        
-        # Build URL with date filters
-        search_url = build_search_url(user, query, start_date, end_date, mirror)
-        print(f"URL: {search_url}", file=sys.stderr)
-        
-        from twitter_search.browser_scraper_camoufox import scrape_user_tweets_camoufox
-        
-        result = scrape_user_tweets_camoufox(
-            username=user or query,
-            query=query,
-            start_date=start_date,
-            end_date=end_date,
-            max_tweets=max_tweets,
-            mirror=mirror
-        )
-        
-        return result
-        
-    except ImportError:
-        print("camoufox not available", file=sys.stderr)
-        return {
-            "search_metadata": {
-                "query": query,
-                "user": user,
-                "start_date": start_date,
-                "end_date": end_date,
-                "timestamp": datetime.now().isoformat() + "Z",
-                "mirror_used": mirror,
-                "error": "camoufox not installed. Install with: pip3 install camoufox",
-                "method": "failed"
-            },
-            "tweets": []
-        }
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        return {
-            "search_metadata": {
-                "query": query,
-                "user": user,
-                "start_date": start_date,
-                "end_date": end_date,
-                "timestamp": datetime.now().isoformat() + "Z",
-                "mirror_used": mirror,
-                "error": str(e),
-                "method": "failed"
-            },
-            "tweets": []
-        }
-
-
-def main():
-    """Main entry point for CLI."""
+def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Search Twitter/X via Nitter mirrors using Camoufox browser automation",
+        prog="nitter-search",
+        description="Search Twitter/X through Nitter mirrors, with automatic instance fallback.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  twitter-search --user "NASA" --max-tweets 20
-  twitter-search --user "elonmusk" --query "tesla" --max-tweets 30
-  twitter-search --user "cirnosad" --start-date 2026-03-18 --end-date 2026-03-18
-  twitter-search --query "artificial intelligence" --max-tweets 50
-        """
+  nitter-search --user NASA --limit 10
+  nitter-search --user elonmusk --query tesla --since 2026-10-01 --limit 30
+  nitter-search --query "mars rover" --filter media --min-faves 100
+  nitter-search --user NASA --stats --limit 5
+  nitter-search --check
+  nitter-search --list-instances
+""",
     )
-    
-    # Required (one of)
-    parser.add_argument("--query", type=str, default=None,
-                        help="Search query text")
-    parser.add_argument("--user", type=str, default=None,
-                        help="Twitter username to search within")
-    
-    # Date range (server-side filtering via Nitter)
-    parser.add_argument("--start-date", type=str, default=None,
-                        help="Start date (YYYY-MM-DD)")
-    parser.add_argument("--end-date", type=str, default=None,
-                        help="End date (YYYY-MM-DD)")
-    
-    # Output options
-    parser.add_argument("--max-tweets", type=int, default=100,
-                        help="Maximum tweets to fetch (default: 100)")
-    parser.add_argument("--mirror", type=str, default="https://nitter.net",
-                        help="Nitter mirror URL (default: https://nitter.net)")
-    
-    args = parser.parse_args()
-    
+    target = parser.add_argument_group("what to search")
+    target.add_argument("--query", "-q", help="Search text")
+    target.add_argument("--user", "-u", help="Twitter username to scope the search to")
+    target.add_argument("--since", "--start-date", dest="since", help="Earliest date (YYYY-MM-DD)")
+    target.add_argument("--until", "--end-date", dest="until", help="Latest date (YYYY-MM-DD)")
+    target.add_argument(
+        "--filter",
+        action="append",
+        default=[],
+        help=f"Nitter filter, repeatable: {', '.join(SUPPORTED_FILTERS)}",
+    )
+    target.add_argument("--min-faves", type=int, help="Minimum likes")
+    target.add_argument("--min-retweets", type=int, help="Minimum retweets")
+    target.add_argument("--min-replies", type=int, help="Minimum replies")
+
+    output = parser.add_argument_group("output")
+    output.add_argument("--limit", "--max-tweets", dest="limit", type=int, default=20,
+                        help="Maximum tweets to return (default: 20)")
+    output.add_argument("--json", action="store_true", help="Emit a single JSON document (default)")
+    output.add_argument("--ndjson", action="store_true", help="Emit one JSON tweet per line")
+    output.add_argument("--text", action="store_true", help="Emit tweet text only")
+    output.add_argument("--pretty", action="store_true", help="Indent JSON output")
+
+    runtime = parser.add_argument_group("runtime")
+    runtime.add_argument("--instance", action="append", help="Pin a Nitter instance, repeatable")
+    runtime.add_argument("--mirror", action="append", help="Alias for --instance")
+    runtime.add_argument("--stats", action="store_true",
+                         help="Use a browser to collect likes/replies/retweets")
+    runtime.add_argument("--no-browser", action="store_true",
+                         help="RSS only; fail instead of launching a browser")
+    runtime.add_argument("--exclude-replies", action="store_true",
+                         help="Drop replies from results")
+    runtime.add_argument("--timeout", type=float, default=90.0,
+                         help="Overall time budget in seconds (default: 90)")
+    runtime.add_argument("--quiet", action="store_true", help="Suppress progress on stderr")
+
+    maintenance = parser.add_argument_group("maintenance")
+    maintenance.add_argument("--check", action="store_true", help="Probe instances and report health")
+    maintenance.add_argument("--list-instances", action="store_true", help="List instances to try")
+    maintenance.add_argument("--refresh", action="store_true", help="Ignore the cached instance list")
+    return parser
+
+
+def _emit(payload: Dict[str, Any], args: argparse.Namespace) -> None:
+    tweets: List[Dict[str, Any]] = payload.get("tweets", [])
+    if args.text:
+        for tweet in tweets:
+            print(tweet.get("text", "").replace("\n", " "))
+        return
+    if args.ndjson:
+        for tweet in tweets:
+            print(json.dumps(tweet, ensure_ascii=False, default=str))
+        return
+    indent = 2 if args.pretty else None
+    print(json.dumps(payload, indent=indent, ensure_ascii=False, default=str))
+
+
+def _exit_code(payload: Dict[str, Any]) -> int:
+    metadata = payload.get("search_metadata", {})
+    if metadata.get("private_profile"):
+        return EXIT_NOT_FOUND
+    if metadata.get("error"):
+        if not payload.get("tweets"):
+            message = str(metadata["error"]).lower()
+            if "no tweets found" in message:
+                return EXIT_NO_RESULTS
+            return EXIT_ERROR
+    return EXIT_OK
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    parser = _build_parser()
+    args = parser.parse_args(argv)
+
+    if args.check:
+        results = instances_mod.check_all(instances=args.instance or args.mirror)
+        print(json.dumps(results, indent=2 if args.pretty else None))
+        return EXIT_OK if any(item["ok"] for item in results) else EXIT_ERROR
+
+    if args.list_instances:
+        records = instances_mod.discover(force=args.refresh)
+        print(json.dumps(records, indent=2 if args.pretty else None))
+        return EXIT_OK
+
     if not args.query and not args.user:
-        parser.error("Either --query or --user must be provided")
-    
-    result = search_twitter(
-        query=args.query or "",
+        parser.error("provide --user, --query, or one of --check / --list-instances")
+
+    request = SearchRequest(
         user=args.user,
-        start_date=args.start_date,
-        end_date=args.end_date,
-        max_tweets=args.max_tweets,
-        mirror=args.mirror
+        query=args.query,
+        since=args.since,
+        until=args.until,
+        limit=args.limit,
+        filters=args.filter,
+        min_faves=args.min_faves,
+        min_retweets=args.min_retweets,
+        min_replies=args.min_replies,
+        instances=(args.instance or args.mirror),
+        with_stats=args.stats,
+        allow_browser=not args.no_browser,
+        include_replies=not args.exclude_replies,
+        timeout=args.timeout,
     )
-    
-    output_json = json.dumps(result, indent=2, default=str)
-    print(output_json)
-    
-    if result["search_metadata"].get("error"):
-        sys.exit(1)
-    elif result["search_metadata"].get("private_profile"):
-        sys.exit(2)
-    else:
-        sys.exit(0)
+
+    try:
+        payload = search(request)
+    except ValidationError as exc:
+        if not args.quiet:
+            print(f"error: {exc}", file=sys.stderr)
+        return EXIT_ERROR
+    except KeyboardInterrupt:
+        return 130
+
+    _emit(payload, args)
+    code = _exit_code(payload)
+    if code != EXIT_OK and not args.quiet:
+        metadata = payload.get("search_metadata", {})
+        detail = metadata.get("error") or ", ".join(
+            f"{item['url']}: {item.get('error')}" for item in metadata.get("instances_tried", [])
+        )
+        print(detail, file=sys.stderr)
+    return code
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
