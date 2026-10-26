@@ -109,6 +109,24 @@ def _dedupe(tweets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return unique
 
 
+def _matches_query(tweet: Any, query: Optional[str]) -> bool:
+    """True when every meaningful token of ``query`` appears in the tweet text.
+
+    Some mirrors answer a search URL with an unfiltered timeline when their
+    backend tokens are missing. Verifying locally costs nothing and stops
+    unrelated tweets from being returned as search results.
+    """
+    if not query:
+        return True
+    tokens = [token.strip('"').lower() for token in query.split()]
+    tokens = [token for token in tokens if len(token) > 1]
+    if not tokens:
+        return True
+    raw = tweet.get("text") if isinstance(tweet, dict) else tweet
+    haystack = str(raw or "").lower()
+    return all(token in haystack for token in tokens)
+
+
 def _sort_newest_first(tweets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Order by ISO timestamp, newest first; undated tweets sink to the end."""
     return sorted(tweets, key=lambda tweet: tweet.get("date") or "", reverse=True)
@@ -185,7 +203,11 @@ def _attempt(
     challenge-gated instance degrades to fewer fields instead of no results.
     """
     problems: List[str] = []
-    order = ["browser", "rss"] if request.with_stats else ["rss", "browser"]
+    # RSS "search" is only implemented on some forks, and the ones that do
+    # implement it sometimes return an unfiltered timeline. Ask for rendered
+    # pages whenever there is a query; timelines stay on the cheap path.
+    wants_browser = request.with_stats or bool(request.query)
+    order = ["browser", "rss"] if wants_browser else ["rss", "browser"]
 
     for transport in order:
         if transport == "browser":
@@ -287,7 +309,10 @@ def search(request: SearchRequest) -> Dict[str, Any]:
         )
         return envelope
 
-    tweets = _sort_newest_first(_dedupe(collected))[: request.limit]
+    tweets = _sort_newest_first(_dedupe(collected))
+    if request.query:
+        tweets = [tweet for tweet in tweets if _matches_query(tweet, request.query)]
+    tweets = tweets[: request.limit]
     metadata.update(
         mirror_used=tried[-1]["url"],
         method=tried[-1]["method"],

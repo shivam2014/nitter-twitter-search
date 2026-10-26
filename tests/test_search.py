@@ -201,3 +201,26 @@ class TestResultShaping:
     def test_unknown_instance_is_rejected_cleanly(self):
         result = search(SearchRequest(user="NASA", instances=["https://nitter.net/NASA"]))
         assert "host root" in result["search_metadata"]["error"]
+
+
+class TestQueryVerification:
+    def test_matches_every_token(self):
+        assert search_module._matches_query({"text": "Mars rover landed safely"}, "mars rover")
+
+    def test_rejects_partial_match(self):
+        assert not search_module._matches_query({"text": "Mars rover landed"}, "mars helicopter")
+
+    def test_empty_query_allows_everything(self):
+        assert search_module._matches_query({"text": "anything at all"}, None)
+
+    def test_unrelated_tweets_are_dropped(self, monkeypatch):
+        wire(
+            monkeypatch,
+            ["https://a.example"],
+            http=lambda url, timeout=10: PROFILE,
+            session=FakeSession([PROFILE]),
+        )
+        result = search(SearchRequest(user="NASA", query="artemis", limit=20, with_stats=True))
+        assert result["tweets"]
+        for tweet in result["tweets"]:
+            assert "artemis" in tweet["text"].lower()
