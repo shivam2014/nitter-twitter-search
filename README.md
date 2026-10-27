@@ -5,14 +5,55 @@
 <p align="center">
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-1E2530?style=flat-square">
   <img alt="License MIT" src="https://img.shields.io/badge/license-MIT-1E2530?style=flat-square">
-  <img alt="Tests 150 offline" src="https://img.shields.io/badge/tests-150%20offline-1E2530?style=flat-square">
+  <img alt="Tests 155 offline" src="https://img.shields.io/badge/tests-155%20offline-1E2530?style=flat-square">
   <img alt="MCP server" src="https://img.shields.io/badge/MCP-server-FF6B5E?style=flat-square">
 </p>
 
-Nitter mirrors are volunteer-run and they die constantly. Most scrapers break when
-that happens, because a mirror URL is baked into the code. This one discovers
-mirrors at runtime, prefers the cheapest transport that works, falls back across
-instances, and remembers which ones failed.
+Public Nitter mirrors are volunteer-run and they die constantly. Most scrapers
+break when that happens, because a mirror URL is baked into the code. This one
+discovers mirrors at runtime, prefers the cheapest transport that works, falls
+back across instances, and remembers which ones failed.
+
+Three ways in: MCP tools for agents, a CLI for scripts, a Python function for
+everything else.
+
+## What a call looks like
+
+Trimmed from a real run (`--query "mars rover" --limit 3 --stats`):
+
+```json
+{
+  "search_metadata": {
+    "user": null,
+    "query": "mars rover",
+    "mirror_used": "https://nitter.netbub.com",
+    "method": "browser",
+    "total": 3,
+    "error": null,
+    "instances_tried": [
+      {"url": "https://nitter.netbub.com", "ok": true, "method": "browser", "error": null}
+    ]
+  },
+  "tweets": [
+    {
+      "id": "2114976333751025928",
+      "url": "https://nitter.netbub.com/engineers_feed/status/2114976333751025928#m",
+      "text": "Japan's MMX spacecraft just left Earth for Phobos, Mars's tiny, lumpy, mysterious moon...",
+      "date": "2026-10-27T07:03:00Z",
+      "author": "engineers_feed",
+      "likes": 11
+    }
+  ]
+}
+```
+
+`method` says where the data came from. `rss` is the fast path and leaves counts
+`null`; `browser` renders the page and fills them in. `instances_tried` is the
+receipt — read it before believing an empty result.
+
+Every tweet carries `id`, `url`, `text`, `date` (ISO 8601 UTC), `author`,
+`author_name`, `likes`, `replies`, `retweets`, `views`, `is_retweet`,
+`retweeted_by`, `quote`, `pinned`, and `media` URLs.
 
 ## Install
 
@@ -39,46 +80,28 @@ an installed Google Chrome, then to RSS-only mode.
 opencode mcp add nitter --global -- "$(command -v nitter-search-mcp)"
 ```
 
-Three tools appear: `user_tweets`, `search_tweets`, `list_nitter_instances`.
-The server keeps a warm browser and a warm instance list between calls.
+Three tools appear: `user_tweets` (a timeline, ~2s), `search_tweets`
+(keywords, dates, filters), and `list_nitter_instances`. The server keeps a warm
+browser and a warm instance list between calls.
 
 ### From the shell
 
 ```bash
 nitter-search --user NASA --limit 5
+nitter-search --user elonmusk --query tesla --since 2026-10-01
+nitter-search --query "mars rover" --filter media --min-faves 100 --stats
+nitter-search --check                 # which mirrors answer right now
 ```
 
-```json
-{
-  "search_metadata": {
-    "user": "NASA",
-    "mirror_used": "https://nitter.netbub.com",
-    "method": "rss",
-    "total": 5,
-    "error": null,
-    "instances_tried": [{"url": "https://nitter.netbub.com", "ok": true, "method": "rss"}]
-  },
-  "tweets": [
-    {
-      "id": "2114484649430798432",
-      "url": "https://nitter.netbub.com/NASA/status/2114484649430798432",
-      "text": "Have you put up your Halloween decor? The night sky will add the finishing touch...",
-      "date": "2026-10-25T22:30:00Z",
-      "author": "NASA",
-      "likes": null
-    }
-  ]
-}
-```
+`--text` prints one tweet per line, `--ndjson` one JSON object per line,
+`--instance URL` pins a mirror. Output is JSON on stdout, diagnostics on stderr.
 
-Add `--stats` when engagement counts matter (switches to the browser path):
-
-```bash
-nitter-search --query "mars rover" --since 2026-10-01 --limit 20 --stats
-```
-
-`--text` prints one tweet per line, `--ndjson` prints one JSON object per line,
-`--check` reports mirror health, `--instance URL` pins a mirror.
+| Exit code | Meaning |
+|-----------|---------|
+| `0` | Tweets returned |
+| `1` | Every mirror failed — run `--check` |
+| `2` | Protected or missing account |
+| `3` | No results for that query or range |
 
 ### From Python
 
@@ -89,6 +112,12 @@ result = search_tweets(user="NASA", limit=10)
 for tweet in result["tweets"]:
     print(tweet["date"], tweet["text"])
 ```
+
+### As an agent skill
+
+Point an agent at [`SKILL.md`](SKILL.md). It documents the tool calls, the
+result envelope, and the failure modes worth retrying — the MCP server is the
+same package, so both paths share the fallback logic.
 
 ## Why it holds up
 
@@ -106,6 +135,9 @@ for tweet in result["tweets"]:
   are detected, cleared in a browser, and the resulting cookies are reused.
 - **Session memory.** An instance that failed in the last fifteen minutes sinks
   in the queue, so repeated calls get faster instead of retrying dead mirrors.
+- **Results are verified.** Some mirrors ignore the query and answer with a
+  generic timeline; every token of the query is checked against the tweet before
+  it is returned.
 - **Honest diagnostics.** `search_metadata.instances_tried` says which mirror was
   tried, over which transport, and why it was dropped.
 
@@ -128,17 +160,8 @@ nitter-search --query "mars" --filter media --min-faves 100 --min-retweets 10
 | Minimum retweets | `--min-retweets N` | |
 | Minimum replies | `--min-replies N` | |
 
-## What you get back
-
-Every tweet carries `id`, `url`, `text`, `date` (ISO 8601 UTC), `author`,
-`author_name`, `likes`, `replies`, `retweets`, `views`, `is_retweet`,
-`retweeted_by`, `quote`, `pinned`, and `media` URLs.
-
-`null` engagement means "not carried by this transport", not zero: the RSS path
-has no counts. Request `--stats` for numbers.
-
-Exit codes: `0` ok, `2` protected/missing account, `3` no results, `1` every
-instance failed.
+Full parameter list: [docs/api.md](docs/api.md). Mirror behaviour and status
+handling: [docs/nitter-instances.md](docs/nitter-instances.md).
 
 ## Limits
 
@@ -154,7 +177,7 @@ instance failed.
 ## Development
 
 ```bash
-./run_tests.sh          # 150 offline tests, under a second
+./run_tests.sh          # 155 offline tests, under a second
 nitter-search --check   # live mirror health
 ```
 

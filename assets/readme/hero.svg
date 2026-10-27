@@ -29,7 +29,7 @@
       <text x="335" y="298" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#D3DAE4">Python</text>
     </g>
 
-    <text x="64" y="392" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#6B7686">nitter-twitter-search · v2.0.0 · MIT · 150 offline tests</text>
+    <text x="64" y="392" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#6B7686">nitter-twitter-search · v2.0.0 · MIT · 155 offline tests</text>
   </g>
 
   <g id="proof-card">
@@ -40,11 +40,11 @@
 
     <line x1="688" y1="104" x2="1140" y2="104" stroke="#1C2431"/>
 
-    <g id="row-win">
-      <circle cx="722" cy="136" r="9" fill="#123322" stroke="#2F7D55"/>
-      <path d="M717.5 136l3.5 3.5 6-7" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="746" y="142" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#E6EBF2">nitter.netbub.com</text>
-      
+    <g id="row-ratelimited">
+      <circle cx="722" cy="136" r="9" fill="#331516" stroke="#7A2E2E"/>
+      <path d="M718.5 132.5l7 7M725.5 132.5l-7 7" fill="none" stroke="#FF6B5E" stroke-width="2" stroke-linecap="round"/>
+      <text x="746" y="142" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#B9C2CF">nitter.netbub.com</text>
+      <text x="1112" y="142" text-anchor="end" font-family="ui-monospace, Menlo, monospace" font-size="17" fill="#FF6B5E">rate limited</text>
     </g>
 
     <g id="row-challenge">
