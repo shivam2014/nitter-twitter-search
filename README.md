@@ -163,6 +163,15 @@ nitter-search --query "mars" --filter media --min-faves 100 --min-retweets 10
 Full parameter list: [docs/api.md](docs/api.md). Mirror behaviour and status
 handling: [docs/nitter-instances.md](docs/nitter-instances.md).
 
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `No matching distribution found for camoufox>=0.5.0` | The `[camoufox]` extra was requested from an index that does not carry 0.5.x | Install without the extra (`pip install -e .`); the Chrome and RSS fallbacks still work |
+| `No usable browser` | No Camoufox payload, Chromium, or Chrome found | `camoufox fetch`, or `playwright install chromium`, or install Google Chrome |
+| `Every instance failed` | All candidate mirrors refused | `nitter-search --check`, then pin a working one with `--instance` |
+| Always `method: rss`, counts are `null` | RSS carries no engagement data | add `--stats` to use the browser path |
+
 ## Limits
 
 - Public mirrors rate limit hard. A single call can return nothing; retry or pin

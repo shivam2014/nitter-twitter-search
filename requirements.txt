@@ -1,12 +1,18 @@
 # Runtime dependencies for nitter-twitter-search.
-# `pip install -e .` reads pyproject.toml; this file exists for plain `pip install -r`.
+# `pip install -e .` reads pyproject.toml; this file is for a plain
+# `pip install -r requirements.txt` development setup.
+
 beautifulsoup4>=4.12.0
 playwright>=1.40.0
 
 # Optional: patched Firefox with generated fingerprints. Harder to detect than
-# stock Chrome, and needed for instances that gate on browser identity.
-# After installing, run: camoufox fetch
-camoufox>=0.5.0
+# stock Chrome, but it needs its browser payload downloaded separately:
+#
+#     pip install camoufox && camoufox fetch
+#
+# It is deliberately NOT installed by default: without it the package falls
+# back to Playwright's Chromium, then to an installed Google Chrome.
+# camoufox>=0.5.0
 
 # Development
 pytest>=7.0.0
